@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Main from "@/components/Main";
 import Login from "@/pages/Login";
+import Main from "@/components/Main";
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
   mounted() {
     if (this.isLoggedIn) {
       const path = "/123/dashboard";
-      if (this.$route.path !== path) this.$router.push(path);
+      if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       this.$router.replace("/");
     }
