@@ -1,6 +1,17 @@
 <template>
   <div>
-    <h1>Games</h1>
-    <router-link to="/123/games/abc/edit">Go to game edit</router-link>
+    <PageHeader :title="'Games'" />
+    <GameList />
   </div>
 </template>
+
+<script>
+import PageHeader from "@/components/PageHeader";
+import GameList from "@/components/GameList";
+export default {
+  components: {
+    PageHeader,
+    GameList,
+  },
+};
+</script>

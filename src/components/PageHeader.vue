@@ -4,7 +4,7 @@
       <h2>{{ this.title }}</h2>
     </div>
     <div class="col-md-4 mb-3">
-      <button class="btn btn-success" type="button">New User</button>
+      <button class="btn btn-success" type="button">New</button>
     </div>
   </div>
 </template>
