@@ -9,6 +9,7 @@
         <SideMenuItem :path="'/123/dashboard'" :linkName="'Dashboard'" />
         <SideMenuItem :path="'/123/users'" :linkName="'Users'" />
         <SideMenuItem :path="'/123/games'" :linkName="'Games'" />
+        <SideMenuItem :path="'/123/settings'" :linkName="'Settings'" />
       </ul>
     </div>
   </nav>

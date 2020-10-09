@@ -8,6 +8,7 @@ import Users from "@/pages/Users";
 import Games from "@/pages/Games";
 import UserEdit from "@/pages/UserEdit";
 import GameEdit from "@/pages/GameEdit";
+import Settings from "@/pages/Settings";
 
 Vue.use(Router);
 
@@ -42,6 +43,11 @@ export default new Router({
       path: "/:adminId/games/:gameId/edit",
       name: "GameEdit",
       component: GameEdit,
+    },
+    {
+      path: "/:adminId/settings",
+      name: "Settings",
+      component: Settings,
     },
   ],
 });
