@@ -1,15 +1,17 @@
 <template>
   <div>
-    <PageHeader />
-    <router-link to="/123/users/abc/edit">Go to user edit</router-link>
+    <PageHeader :title="'Users'" />
+    <UserList />
   </div>
 </template>
 
 <script>
 import PageHeader from "@/components/PageHeader";
+import UserList from "@/components/UserList";
 export default {
   components: {
     PageHeader,
+    UserList,
   },
 };
 </script>
