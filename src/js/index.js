@@ -17,53 +17,12 @@ import "common.scss";
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store";
-import VueRouter from "vue-router";
-Vue.config.productionTip = false;
-Vue.use(VueRouter);
+import router from "@/router";
 
-// const routes = [
-//   {
-//     path: "/",
-//     name: "index",
-//     component: Hoge,
-//     // children: [
-//     //   {
-//     //     path: '',
-//     //     name: 'index',
-//     //     component: require('./pages/Index/Index.vue').default,
-//     //   },
-//     //   {
-//     //     path: '/about/',
-//     //     name: 'about'
-//     //     component: require('./pages/About/About.vue').default
-//     //   }
-//     // ]
-//   },
-//   {
-//     path: "/hoge",
-//     name: "hoge",
-//     component: Hoge,
-//     children: [
-//       {
-//         path: "/hoge/:id",
-//         name: "hogehoge",
-//         component: HogeChildren,
-//       },
-//     ],
-//   },
-//   {
-//     path: "/foo",
-//     name: "foo",
-//     component: Foo,
-//   },
-// ];
-// const router = new VueRouter({
-//   // mode: "history",
-//   routes,
-// });
+Vue.config.productionTip = false;
 
 new Vue({
-  // router,
+  router,
   store,
   render: (h) => h(App),
 }).$mount("#app");
