@@ -8,6 +8,7 @@ import Users from "@/pages/Users";
 import Games from "@/pages/Games";
 import UserEdit from "@/pages/UserEdit";
 import GameEdit from "@/pages/GameEdit";
+import Settings from "@/pages/Settings";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 
 const localVue = createLocalVue();
@@ -59,6 +60,11 @@ describe("Routing", () => {
         name: "GameEdit",
         component: GameEdit,
       },
+      {
+        path: "/:adminId/settings",
+        name: "Settings",
+        component: Settings,
+      },
     ];
 
     router = new VueRouter({ routes });
@@ -101,5 +107,12 @@ describe("Routing", () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(GameEdit).exists()).toBe(true);
+  });
+
+  it("renders settings page via routing", async () => {
+    router.push("/123/settings");
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.findComponent(Settings).exists()).toBe(true);
   });
 });
