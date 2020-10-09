@@ -34,7 +34,7 @@ export default {
   },
   mounted() {
     if (this.isLoggedIn) {
-      const path = "/123/dashboard";
+      const path = "/123/users";
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       this.$router.replace("/");
