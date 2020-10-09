@@ -8,9 +8,12 @@ import Users from "@/pages/Users";
 import Games from "@/pages/Games";
 import UserEdit from "@/pages/UserEdit";
 import GameEdit from "@/pages/GameEdit";
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
+localVue.use(BootstrapVue);
+localVue.use(BootstrapVueIcons);
 
 describe("App.vue", () => {
   it("renders when passed", () => {

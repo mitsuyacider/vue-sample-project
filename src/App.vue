@@ -1,10 +1,13 @@
 <template>
   <div>
     <Header />
-    <div>
-      <Main v-if="isLoggedIn" />
-      <Login v-else />
+    <div v-if="isLoggedIn">
+      <div class="row mr-0 ml-0">
+        <SideMenu />
+        <Main />
+      </div>
     </div>
+    <div v-else><Login /></div>
     <Footer />
   </div>
 </template>
@@ -14,6 +17,7 @@ import Login from "@/pages/Login";
 import Main from "@/components/Main";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SideMenu from "@/components/SideMenu";
 
 export default {
   components: {
@@ -21,6 +25,7 @@ export default {
     Login,
     Header,
     Footer,
+    SideMenu,
   },
   data() {
     return {
