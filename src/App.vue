@@ -1,20 +1,23 @@
 <template>
   <div>
-    <h1>Acme Games</h1>
-
-    <Main v-if="isLoggedIn" />
-    <Login v-else />
+    <Header />
+    <div>
+      <Main v-if="isLoggedIn" />
+      <Login v-else />
+    </div>
   </div>
 </template>
 
 <script>
 import Login from "@/pages/Login";
 import Main from "@/components/Main";
+import Header from "@/components/Header";
 
 export default {
   components: {
     Main,
     Login,
+    Header,
   },
   data() {
     return {

@@ -13,20 +13,31 @@
  */
 // NOTE: webpack-dev-server doesn't export bundle files to dist folder. It access to files on memory。
 
+// NOTE: Styles
 import "common.scss";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store";
 import router from "@/router";
+import {
+  BootstrapVue,
+  BootstrapVueIcons,
+  BIcon,
+  BIconArrowUp,
+  BIconArrowDown,
+} from "bootstrap-vue";
 
-Vue.config.productionTip = false;
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
+Vue.component("BIcon", BIcon);
+Vue.component("BIconArrowUp", BIconArrowUp);
+Vue.component("BIconArrowDown", BIconArrowDown);
 
 new Vue({
   router,
   store,
   render: (h) => h(App),
 }).$mount("#app");
-
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("hallo world");
-});
