@@ -20,7 +20,7 @@ import Main from "@/components/Main";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SideMenu from "@/components/SideMenu";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -40,7 +40,7 @@ export default {
   },
   mounted() {
     if (this.hasAdminData) {
-      const path = "/123/dashboard/";
+      const path = "/123/users/";
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       const path = "/";

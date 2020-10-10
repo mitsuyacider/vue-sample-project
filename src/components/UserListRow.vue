@@ -1,10 +1,10 @@
 <template>
   <BaseListRow>
     <tr>
-      <td>1,001</td>
-      <td>Lorem</td>
-      <td>ipsum</td>
-      <td>dolor</td>
+      <td>{{ user.userId }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>0</td>
+      <td>{{ user.email }}</td>
       <td>
         <router-link to="/123/users/abc/edit"
           ><b-icon icon="trash"></b-icon
@@ -24,8 +24,8 @@ export default {
     BaseListRow,
   },
   props: {
-    title: {
-      type: String,
+    user: {
+      type: Object,
       value: "",
     },
   },

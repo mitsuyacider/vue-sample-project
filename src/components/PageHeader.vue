@@ -23,6 +23,7 @@ export default {
     hasNewButton: {
       type: Boolean,
       value: true,
+      default: true,
     },
   },
 };
