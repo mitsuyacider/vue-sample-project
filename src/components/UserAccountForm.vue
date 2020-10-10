@@ -45,11 +45,11 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="email">Birthday</label>
+      <label for="birthday">Birthday</label>
       <input
         type="date"
         class="form-control"
-        id="email"
+        id="birthday"
         placeholder="you@example.com"
         value=""
         required="true"
