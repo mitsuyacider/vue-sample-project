@@ -1,12 +1,11 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <div class="col-md-6">
+  <div class="d-flex justify-content-center form-container">
+    <div class="col-md-4">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Welcome to Acme Games!</h1>
+      </div>
       <form class="form-signin">
-        <div class="text-center mb-4">
-          <h1 class="h3 mb-3 font-weight-normal">Welcome to Acme Games!</h1>
-        </div>
-
-        <div class="form-label-group">
+        <div class="form-label-group mb-3">
           <input
             type="email"
             id="inputEmail"
@@ -15,7 +14,6 @@
             required=""
             autofocus=""
           />
-          <label for="inputEmail">Email address</label>
         </div>
 
         <div class="form-label-group">
@@ -26,7 +24,10 @@
             placeholder="Password"
             required=""
           />
-          <label for="inputPassword">Password</label>
+        </div>
+
+        <div class="invalid-feedback mb-3">
+          Email or password is invalid.
         </div>
 
         <div class="checkbox mb-3">
@@ -41,3 +42,24 @@
     </div>
   </div>
 </template>
+
+<script>
+import BaseForm from "@/components/BaseForm";
+export default {
+  BaseForm,
+};
+</script>
+
+<style lang="scss">
+.form-container {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  bottom: 0;
+  transform: translate(0, -50%);
+}
+
+.invalid-feedback {
+  display: block;
+}
+</style>

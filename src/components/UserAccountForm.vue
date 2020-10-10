@@ -57,8 +57,8 @@
       <div class="invalid-feedback">
         Please enter a valid birthday.
       </div>
-    </div></BaseForm
-  >
+    </div>
+  </BaseForm>
 </template>
 
 <script>
