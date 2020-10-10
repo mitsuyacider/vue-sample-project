@@ -23,8 +23,33 @@
         style="font-size: 1rem; color:white;"
       >
         <b-icon icon="person-fill"></b-icon>
-        Mitsuya
+        <b-dropdown
+          id="dropdown-account"
+          dropbottom
+          text="Mitsuya"
+          variant="none"
+          class="account-menu"
+          no-caret
+        >
+          <b-dropdown-item href="/#/">Sign Out</b-dropdown-item>
+        </b-dropdown>
       </div>
     </nav>
   </header>
 </template>
+
+<style lang="scss">
+.account-menu {
+  color: white;
+  button {
+    color: white;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  button:hover {
+    background: none;
+    color: black;
+  }
+}
+</style>

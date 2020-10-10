@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
 // NOTE: Override bootstrap style for Dropdown
 .valid-state {
   button {
