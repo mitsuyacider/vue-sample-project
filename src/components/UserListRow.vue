@@ -7,7 +7,7 @@
       <td>{{ user.email }}</td>
       <td>
         <b-icon icon="trash" v-on:click="onClickTrash"></b-icon>
-        <router-link to="/123/users/abc/edit"
+        <router-link :to="`/${adminData.userId}/users/${user.userId}/edit`"
           ><b-icon icon="pencil-square"></b-icon
         ></router-link>
       </td>
@@ -17,6 +17,8 @@
 
 <script>
 import BaseListRow from "@/components/BaseListRow";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     BaseListRow,
@@ -26,6 +28,9 @@ export default {
       type: Object,
       value: "",
     },
+  },
+  computed: {
+    ...mapGetters(["adminData"]),
   },
   methods: {
     onClickTrash() {
