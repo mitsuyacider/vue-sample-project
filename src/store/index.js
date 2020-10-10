@@ -33,7 +33,7 @@ export default new Vuex.Store({
         commit("getDummy", "hello world");
       }, 1000);
     },
-    setAdminData({ commit, data }) {
+    setAdminData({ commit }, data) {
       commit("setAdminData", data);
     },
   },
