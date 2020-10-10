@@ -58,9 +58,7 @@ export default {
     SideMenuItem,
     BaseIcon,
   },
-  mounted() {
-    console.log(this.$route.name);
-  },
+  mounted() {},
 };
 </script>
 

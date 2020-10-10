@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
 import App from "@/App.vue";
 import VueRouter from "vue-router";
-
+import Vuex from "vuex";
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 import Users from "@/pages/Users";
@@ -15,10 +15,20 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 localVue.use(BootstrapVue);
 localVue.use(BootstrapVueIcons);
+localVue.use(Vuex);
 
 describe("App.vue", () => {
+  const getters = {
+    hasAdminData: () => 2,
+    adminData: () => "input",
+  };
+
+  const store = new Vuex.Store({
+    getters,
+  });
+
   it("renders when passed", () => {
-    const wrapper = shallowMount(App);
+    const wrapper = shallowMount(App, { store, localVue });
     expect(wrapper).not.toBeUndefined();
   });
 });
@@ -27,6 +37,17 @@ describe("Routing", () => {
   let routes;
   let router;
   let wrapper;
+
+  const getters = {
+    hasAdminData: () => true,
+    adminData: () => {
+      userId: "123";
+    },
+  };
+
+  const store = new Vuex.Store({
+    getters,
+  });
 
   beforeEach(() => {
     routes = [
@@ -70,11 +91,14 @@ describe("Routing", () => {
     router = new VueRouter({ routes });
     wrapper = mount(App, {
       localVue,
+      store,
       router,
     });
   });
 
   it("renders dashboard page via routing", async () => {
+    expect(wrapper).not.toBeUndefined();
+
     router.push("/123/dashboard");
     await wrapper.vm.$nextTick();
 

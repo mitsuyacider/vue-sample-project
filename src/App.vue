@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <div class="wrap">
       <Header />
-      <div v-if="isLoggedIn">
+      <div v-if="this.hasAdminData">
         <div class="row mr-0 ml-0">
           <SideMenu />
           <Main />
@@ -20,6 +20,7 @@ import Main from "@/components/Main";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SideMenu from "@/components/SideMenu";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -31,11 +32,14 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: true,
+      isLoggedIn: false,
     };
   },
+  computed: {
+    ...mapGetters(["hasAdminData", "adminData"]),
+  },
   mounted() {
-    if (this.isLoggedIn) {
+    if (this.hasAdminData) {
       const path = "/123/dashboard/";
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {

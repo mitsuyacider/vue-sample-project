@@ -2,13 +2,6 @@ import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
 import SideMenuItem from "@/components/SideMenuItem.vue";
 import VueRouter from "vue-router";
 
-import Login from "@/pages/Login";
-import Dashboard from "@/pages/Dashboard";
-import Users from "@/pages/Users";
-import Games from "@/pages/Games";
-import UserEdit from "@/pages/UserEdit";
-import GameEdit from "@/pages/GameEdit";
-import Settings from "@/pages/Settings";
 import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
 
 const localVue = createLocalVue();
