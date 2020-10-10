@@ -37,16 +37,23 @@ describe("Routing", () => {
   let routes;
   let router;
   let wrapper;
+  let actions;
 
   const getters = {
     hasAdminData: () => true,
     adminData: () => {
       userId: "123";
     },
+    "user/userList": () => "",
+  };
+
+  actions = {
+    "user/getAllUser": () => "",
   };
 
   const store = new Vuex.Store({
     getters,
+    actions,
   });
 
   beforeEach(() => {

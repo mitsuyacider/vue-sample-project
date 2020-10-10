@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseListTable>
+    <BaseListTable v-if="this['user/userList'].length > 0">
       <UserListHeader />
 
       <UserListRow
@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     this["user/getAllUser"]();
-    console.log(this["user/userList"]);
   },
   methods: {
     ...mapActions(["user/getAllUser"]),
