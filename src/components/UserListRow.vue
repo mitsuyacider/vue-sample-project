@@ -6,9 +6,7 @@
       <td>0</td>
       <td>{{ user.email }}</td>
       <td>
-        <router-link to="/123/users/abc/edit"
-          ><b-icon icon="trash"></b-icon
-        ></router-link>
+        <b-icon icon="trash" v-on:click="onClickTrash"></b-icon>
         <router-link to="/123/users/abc/edit"
           ><b-icon icon="pencil-square"></b-icon
         ></router-link>
@@ -27,6 +25,17 @@ export default {
     user: {
       type: Object,
       value: "",
+    },
+  },
+  methods: {
+    onClickTrash() {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ${this.user.firstName}?`
+      );
+
+      if (isConfirmed) {
+        this.$emit("onClickTrash", this.user);
+      }
     },
   },
 };

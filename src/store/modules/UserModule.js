@@ -43,11 +43,23 @@ export const userModule = {
     getAllUser(state, data) {
       state.userList = data;
     },
+    deleteUser(state, userId) {
+      const userList = state.userList;
+      const deleteUserIndex = userList.findIndex(
+        (user) => user.userId === userId
+      );
+      userList.splice(deleteUserIndex, 1);
+    },
   },
   actions: {
     getAllUser({ commit }) {
       setTimeout(() => {
         commit("getAllUser", mockUserList);
+      }, 1000);
+    },
+    deleteUser({ commit }, userId) {
+      setTimeout(() => {
+        commit("deleteUser", userId);
       }, 1000);
     },
   },

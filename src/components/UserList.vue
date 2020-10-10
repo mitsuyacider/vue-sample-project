@@ -1,15 +1,21 @@
 <template>
   <div>
-    <BaseListTable v-if="this['user/userList'].length > 0">
-      <UserListHeader />
+    <div v-if="this['user/userList'].length > 0">
+      <BaseListTable>
+        <UserListHeader />
 
-      <UserListRow
-        v-for="user in this['user/userList']"
-        :key="user.userId"
-        :user="user"
-      />
-    </BaseListTable>
-    <Pagination />
+        <UserListRow
+          v-for="user in this['user/userList']"
+          :key="user.userId"
+          :user="user"
+          @onClickTrash="deleteUser"
+        />
+      </BaseListTable>
+      <Pagination />
+    </div>
+    <div v-else>
+      No data
+    </div>
   </div>
 </template>
 
@@ -34,7 +40,11 @@ export default {
     this["user/getAllUser"]();
   },
   methods: {
-    ...mapActions(["user/getAllUser"]),
+    ...mapActions(["user/getAllUser", "user/deleteUser"]),
+    deleteUser(user) {
+      console.log(user);
+      this["user/deleteUser"](user.userId);
+    },
   },
 };
 </script>
