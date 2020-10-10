@@ -2,13 +2,13 @@
   <div class="d-flex flex-column min-vh-100">
     <div class="wrap">
       <Header />
-      <div v-if="isLoggedIn">
+      <div v-if="isLoggedIn" :style="styleObject">
         <div class="row mr-0 ml-0">
           <SideMenu />
           <Main />
         </div>
       </div>
-      <div class="main-container" v-else><Login /></div>
+      <div v-else class="main-container"><Login /></div>
     </div>
     <Footer />
   </div>
@@ -31,12 +31,15 @@ export default {
   },
   data() {
     return {
-      isLoggedIn: false,
+      isLoggedIn: true,
+      styleObject: {
+        minHeight: "80vh",
+      },
     };
   },
   mounted() {
     if (this.isLoggedIn) {
-      const path = "/123/users/abc/edit";
+      const path = "/123/users/";
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       const path = "/";

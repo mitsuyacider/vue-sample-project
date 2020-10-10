@@ -2,7 +2,6 @@
   <nav
     id="sidebarMenu"
     class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-    style=""
   >
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
@@ -23,3 +22,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+nav {
+  min-height: calc(100vh - #{$headerHeight} - #{$footerHeight});
+}
+</style>
