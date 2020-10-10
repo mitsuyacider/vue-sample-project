@@ -1,0 +1,5 @@
+<template>
+  <form class="needs-validation was-validated">
+    <slot />
+  </form>
+</template>
