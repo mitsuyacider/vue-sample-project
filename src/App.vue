@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100">
     <div class="wrap">
       <Header />
-      <div v-if="isLoggedIn" :style="styleObject">
+      <div v-if="isLoggedIn">
         <div class="row mr-0 ml-0">
           <SideMenu />
           <Main />
@@ -32,14 +32,11 @@ export default {
   data() {
     return {
       isLoggedIn: true,
-      styleObject: {
-        minHeight: "80vh",
-      },
     };
   },
   mounted() {
     if (this.isLoggedIn) {
-      const path = "/123/users/";
+      const path = "/123/games/";
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       const path = "/";
