@@ -8,7 +8,7 @@
           class="form-control"
           id="firstName"
           placeholder="First Name"
-          value=""
+          :value="user.firstName"
           required=""
         />
         <div class="invalid-feedback">
@@ -22,7 +22,7 @@
           class="form-control"
           id="lastName"
           placeholder="Last Name"
-          value=""
+          :value="user.lastName"
           required=""
         />
         <div class="invalid-feedback">
@@ -37,8 +37,8 @@
         class="form-control"
         id="email"
         placeholder="you@example.com"
-        value=""
-        required="true"
+        :value="user.email"
+        required=""
       />
       <div class="invalid-feedback">
         Please enter a valid email address.
@@ -50,9 +50,8 @@
         type="date"
         class="form-control"
         id="birthday"
-        placeholder="you@example.com"
-        value=""
-        required="true"
+        :value="user.dateOfBirth"
+        required=""
       />
       <div class="invalid-feedback">
         Please enter a valid birthday.
@@ -66,6 +65,12 @@ import BaseForm from "@/components/BaseForm";
 export default {
   components: {
     BaseForm,
+  },
+  props: {
+    user: {
+      type: Object,
+      value: "",
+    },
   },
 };
 </script>

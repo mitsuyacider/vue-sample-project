@@ -1,5 +1,5 @@
 <template>
-  <form class="needs-validation was-validated">
+  <form class="needs-validation">
     <slot />
   </form>
 </template>
