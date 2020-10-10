@@ -39,7 +39,7 @@ export default {
     ...mapGetters(["hasAdminData", "adminData"]),
   },
   mounted() {
-    if (this.hasAdminData) {
+    if (this.hasAdminData && this.adminData && this.adminData.userId) {
       const path = `/${this.adminData.userId}/users/1234/edit`;
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
