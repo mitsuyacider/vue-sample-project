@@ -9,6 +9,7 @@ import Games from "@/pages/Games";
 import UserEdit from "@/pages/UserEdit";
 import GameEdit from "@/pages/GameEdit";
 import Settings from "@/pages/Settings";
+import NotFound from "@/pages/NotFound";
 
 Vue.use(Router);
 
@@ -49,5 +50,7 @@ export default new Router({
       name: "Settings",
       component: Settings,
     },
+    { path: "/:pathMatch(.*)*", name: "not-found", component: NotFound },
+    { path: "/:pathMatch(.*)*", component: NotFound },
   ],
 });
