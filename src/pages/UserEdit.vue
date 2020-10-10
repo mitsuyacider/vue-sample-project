@@ -9,7 +9,7 @@
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
       <div class="mb-1"><span>Ownership Games</span></div>
-      <GameList />
+      <OwnershipList />
     </div>
 
     <!-- Edit button (Delete / Save) -->
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import GameList from "@/components/GameList";
+import OwnershipList from "@/components/OwnershipList";
 import UserAccountForm from "@/components/UserAccountForm";
 import EditButtonGroup from "@/components/EditButtonGroup";
 import StaticEditName from "@/components/StaticEditName";
 export default {
   components: {
-    GameList,
+    OwnershipList,
     UserAccountForm,
     EditButtonGroup,
     StaticEditName,

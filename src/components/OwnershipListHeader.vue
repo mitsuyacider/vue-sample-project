@@ -1,7 +1,7 @@
 <template>
   <BaseListHeader>
     <tr>
-      <th>User Name</th>
+      <th>Name</th>
       <th>State</th>
       <th>Registered</th>
       <th></th>
