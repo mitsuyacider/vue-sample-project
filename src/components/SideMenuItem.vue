@@ -22,7 +22,12 @@ export default {
   },
   computed: {
     isSelected() {
-      return String(this.$route.name === this.linkName);
+      if (this.$route) {
+        const value = this.$route.name === this.linkName;
+        return value.toString();
+      } else {
+        return "false";
+      }
     },
   },
 };
