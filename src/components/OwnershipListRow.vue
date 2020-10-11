@@ -12,8 +12,12 @@
           :text="rowData.state"
           class="valid-state"
         >
-          <b-dropdown-item href="#">Grant</b-dropdown-item>
-          <b-dropdown-item href="#">Invoke</b-dropdown-item>
+          <b-dropdown-item href="#" v-on:click.prevent="onChangeState"
+            >Grant</b-dropdown-item
+          >
+          <b-dropdown-item href="#" v-on:click.prevent="onChangeState"
+            >Invoke</b-dropdown-item
+          >
         </b-dropdown>
       </td>
 
@@ -38,13 +42,24 @@ export default {
     BaseListRow,
   },
   props: {
-    title: {
-      type: String,
-      value: "",
-    },
     rowData: {
       type: Object,
       value: {},
+    },
+    index: {
+      type: Number,
+      value: 0,
+    },
+  },
+  methods: {
+    onChangeState(e) {
+      const index = this.index;
+      const changeData = {
+        modified: e.target.textContent,
+        index,
+      };
+      const mergedData = Object.assign(this.rowData, changeData);
+      this.$emit("onChangeState", mergedData);
     },
   },
 };

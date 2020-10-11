@@ -50,26 +50,14 @@ export const ownershipModule = {
       );
       userList.splice(deleteUserIndex, 1);
     },
-    postOwnershipEdit(state, ownershipEdit) {
-      const ownershipList = state.ownershipList;
-      ownershipList
-        .filter(
-          (ownership) => ownership.ownershipId === ownershipEdit.ownershipId
-        )
-        .map((ownership) => {
-          return Object.assign(ownership, ownershipEdit);
-        });
-    },
   },
   actions: {
     async deleteOwnership({ commit }, ownershipId) {
       await deleteOwnership();
       // commit("deleteOwnership", ownershipId);
     },
-    postOwnershipEdit({ commit }, ownership) {
-      setTimeout(() => {
-        commit("postOwnershipEdit", ownership);
-      }, 1000);
+    async postOwnershipEdit({ commit }, ownership) {
+      await postOwnershipEdit();
     },
   },
   getters: {
@@ -77,6 +65,14 @@ export const ownershipModule = {
       return state.ownershipList;
     },
   },
+};
+
+const postOwnershipEdit = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 2000);
+  });
 };
 
 const deleteOwnership = () => {

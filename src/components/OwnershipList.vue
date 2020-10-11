@@ -7,6 +7,7 @@
         :key="ownership.ownershipId"
         :rowData="ownership"
         @onClickTrash="handleOnClickTrash"
+        @onChangeState="handleOnChangeState"
       />
     </BaseListTable>
     <Pagination />
@@ -35,6 +36,9 @@ export default {
   methods: {
     handleOnClickTrash(data) {
       this.$emit("onClickTrash", data);
+    },
+    handleOnChangeState(data) {
+      this.$emit("onChangeState", data);
     },
   },
 };

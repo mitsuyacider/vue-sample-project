@@ -9,7 +9,11 @@
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
       <div class="mb-1"><span>Ownership Games</span></div>
-      <OwnershipList :ownerships="ownerships" @onClickTrash="deleteOwnership" />
+      <OwnershipList
+        :ownerships="ownerships"
+        @onClickTrash="deleteOwnership"
+        @onChangeState="changeOwnershipState"
+      />
     </div>
 
     <!-- Edit button (Delete / Save) -->
@@ -93,6 +97,7 @@ export default {
       "user/postUserEdit",
       "user/deleteUser",
       "ownership/deleteOwnership",
+      "ownership/postOwnershipEdit",
     ]),
     getName() {
       // NOTE: Remove all white spaces in the input field
@@ -142,6 +147,14 @@ export default {
           this.ownerships.splice(deleteOwnershipIndex, 1);
         });
       }
+    },
+    changeOwnershipState(data) {
+      // NOTE: Update state
+      this["ownership/deleteOwnership"](data.ownershipId).then((e) => {
+        // NOTE: Apply update state to the row data.
+        const state = data.modified === "Grant" ? "granted" : "invoked";
+        data.state = state;
+      });
     },
   },
 };
