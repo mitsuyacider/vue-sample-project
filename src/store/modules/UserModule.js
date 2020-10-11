@@ -58,6 +58,9 @@ export const userModule = {
           return Object.assign(user, editedUser);
         });
     },
+    createUser(state, newUser) {
+      state.userList.push(newUser);
+    },
   },
   actions: {
     getAllUser({ commit }) {
@@ -73,6 +76,12 @@ export const userModule = {
       await postUserEdit();
       commit("postUserEdit", user);
     },
+    async createUser({ commit }, user) {
+      await createUser();
+
+      user.userId = Math.floor(Math.random() * 1000000);
+      commit("createUser", user);
+    },
   },
   getters: {
     userList(state) {
@@ -86,6 +95,14 @@ const deleteUser = () => {
     setTimeout(() => {
       resolve("resolved");
     }, 2000);
+  });
+};
+
+const createUser = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 1000);
   });
 };
 

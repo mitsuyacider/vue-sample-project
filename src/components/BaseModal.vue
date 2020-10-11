@@ -1,7 +1,15 @@
 <template>
   <!-- User account modal -->
-  <b-modal :id="modalId" :title="title">
+  <b-modal
+    :id="modalId"
+    :title="title"
+    :ref="'create-modal-' + modalId"
+    @ok="(e) => this.$emit('onClickOk')"
+    hide-footer
+  >
     <slot />
+    <b-button @click="hideModal">Cancel</b-button>
+    <b-button class="btn-success" @click="onClickCreate">Create</b-button>
   </b-modal>
 </template>
 
@@ -15,6 +23,14 @@ export default {
     title: {
       type: String,
       value: "",
+    },
+  },
+  methods: {
+    hideModal() {
+      this.$refs["create-modal-" + this.modalId].hide();
+    },
+    onClickCreate() {
+      this.$emit("onClickCreate");
     },
   },
 };

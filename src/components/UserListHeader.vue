@@ -3,7 +3,7 @@
     <tr>
       <th>#id</th>
       <th>Name</th>
-      <th>Ownerships</th>
+      <th>DateOfBirth</th>
       <th>EMail</th>
       <th></th>
     </tr>

@@ -57,6 +57,20 @@
         Please enter a valid birthday.
       </div>
     </div>
+    <div class="mb-3">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+        v-model="user.password"
+        required=""
+      />
+      <div class="invalid-feedback">
+        Please enter a valid birthday.
+      </div>
+    </div>
   </BaseForm>
 </template>
 

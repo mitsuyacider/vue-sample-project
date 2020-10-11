@@ -2,8 +2,8 @@
   <BaseListRow>
     <tr>
       <td>{{ user.userId }}</td>
-      <td>{{ user.firstName }}</td>
-      <td>0</td>
+      <td>{{ user.firstName + " " + user.lastName }}</td>
+      <td>{{ user.dateOfBirth }}</td>
       <td>{{ user.email }}</td>
       <td>
         <b-icon icon="trash" v-on:click="onClickTrash"></b-icon>
