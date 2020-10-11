@@ -1,15 +1,18 @@
 <template>
   <BaseListRow>
     <tr>
-      <td>Game</td>
-      <td>Acme Games</td>
-      <td>18</td>
-      <td>20</td>
+      <td>{{ rowData.gameId }}</td>
       <td>
-        <router-link to="/123/games/abc/edit"
-          ><b-icon icon="trash"></b-icon
-        ></router-link>
-        <router-link to="/123/games/abc/edit"
+        <div class="d-flex align-items-center">
+          <img src="http://placehold.jp/24/cc9999/993333/80x50.png" alt="" />
+          <span class="ml-2">{{ rowData.gameName }}</span>
+        </div>
+      </td>
+      <td>{{ rowData.ageRestriction }}</td>
+      <td>
+        <b-icon icon="trash"></b-icon>
+        <router-link
+          :to="`/${this.$route.params.adminId}/users/${rowData.gameId}/edit`"
           ><b-icon icon="pencil-square"></b-icon
         ></router-link>
       </td>
@@ -24,9 +27,9 @@ export default {
     BaseListRow,
   },
   props: {
-    title: {
-      type: String,
-      value: "",
+    rowData: {
+      type: Object,
+      value: {},
     },
   },
 };

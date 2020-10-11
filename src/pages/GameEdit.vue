@@ -1,19 +1,24 @@
 <template>
   <div>
-    <!-- User Name -->
-    <StaticEditName :name="'Acme Games'" />
+    <b-overlay :show="isGameEditLoading" rounded="sm">
+      <!-- User Name -->
+      <StaticEditName :name="'Acme Games'" />
 
-    <!-- Account form -->
-    <GameForm />
+      <!-- Account form -->
+      <GameForm />
+
+      <!-- Edit button (Delete / Save) -->
+      <EditButtonGroup
+        @onClickSuccess="postGameEdit"
+        @onClickDelete="deleteGame"
+      />
+    </b-overlay>
 
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
       <div class="mb-1"><span>Ownerships</span></div>
       <OwnershipList />
     </div>
-
-    <!-- Edit button (Delete / Save) -->
-    <EditButtonGroup />
   </div>
 </template>
 
@@ -29,6 +34,15 @@ export default {
     GameForm,
     EditButtonGroup,
     StaticEditName,
+  },
+  data() {
+    return {
+      isGameEditLoading: false,
+    };
+  },
+  methods: {
+    postGameEdit() {},
+    deleteGame() {},
   },
 };
 </script>

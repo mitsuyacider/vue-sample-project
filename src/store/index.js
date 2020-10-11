@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { userModule } from "@/store/modules/UserModule";
 import { ownershipModule } from "@/store/modules/OwnershipModule";
+import { gameModule } from "@/store/modules/GameModule";
 
 Vue.use(Vuex);
 
@@ -9,6 +10,7 @@ export default new Vuex.Store({
   modules: {
     user: userModule,
     ownership: ownershipModule,
+    game: gameModule,
   },
   state: {
     // NOTE: Initial data for this assignment

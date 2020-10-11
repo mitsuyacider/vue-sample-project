@@ -1,9 +1,8 @@
 <template>
   <BaseListHeader>
     <tr>
-      <th>Game</th>
+      <th># id</th>
       <th>Name</th>
-      <th>Users</th>
       <th>Restriction</th>
       <th></th>
     </tr>
