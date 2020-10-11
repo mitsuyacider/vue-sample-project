@@ -15,7 +15,7 @@
     </b-overlay>
 
     <!-- Ownership game list related to the editing user account -->
-    <div class="mt-5">
+    <div class="mt-5" v-if="this['user/userList'].length > 0">
       <div class="row mt-4">
         <div class="col-md-8">
           <div class="mb-1"><span>Ownerships</span></div>
@@ -31,9 +31,14 @@
         :ownerships="ownerships"
         :listType="'user'"
         :isLoading="isOwnershipLoading"
+        v-if="ownerships.length > 0"
         @onClickTrash="deleteOwnership"
         @onChangeState="changeOwnershipState"
       />
+      <div>
+        There is no ownership data. Let's grant ownership to users for this
+        game!
+      </div>
     </div>
 
     <!-- Ownership modal -->
@@ -83,6 +88,9 @@ export default {
     next((vm) => vm.setData(null, mergedMock));
   },
 
+  computed: {
+    ...mapGetters(["user/userList"]),
+  },
   components: {
     OwnershipList,
     GameForm,
@@ -111,10 +119,13 @@ export default {
         (ownership) => ownership.gameId === gameId
       );
       const mergedOwnership = ownerships.map((ownership) => {
+        console.log("*** ownership.userId", ownership.userId);
         const user = store.getters["user/getUserById"](ownership.userId);
         ownership.user = user;
         return ownership;
       });
+
+      console.log("*** watch ownership list", mergedOwnership);
 
       this.ownerships = mergedOwnership;
     },
@@ -147,6 +158,7 @@ export default {
       }
     },
     setData(err, data) {
+      console.log("*** set data", data.gameInfo);
       this.game = data.gameInfo;
       this.ownerships = data.ownerships;
     },

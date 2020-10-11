@@ -1,22 +1,22 @@
 const mockGameList = [
-  {
-    gameId: "1",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "2",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "3",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
+  // {
+  //   gameId: "1",
+  //   gameName: "Acme Game",
+  //   ageRestriction: 18,
+  //   thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
+  // },
+  // {
+  //   gameId: "2",
+  //   gameName: "Acme Game",
+  //   ageRestriction: 18,
+  //   thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
+  // },
+  // {
+  //   gameId: "3",
+  //   gameName: "Acme Game",
+  //   ageRestriction: 18,
+  //   thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
+  // },
 ];
 
 export const gameModule = {
@@ -74,7 +74,8 @@ export const gameModule = {
       return state.gameList;
     },
     getGameById: (state) => (gameId) => {
-      return state.gameList.filter((game) => game.gameId === gameId)[0];
+      console.log("** get game by id", state.gameList);
+      return state.gameList.filter((game) => game.gameId == gameId)[0];
     },
   },
 };

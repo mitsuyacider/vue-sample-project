@@ -1,36 +1,36 @@
 const mockUserList = [
-  {
-    userId: "1",
-    firstName: "Mitsuya1",
-    lastName: "Watanabe1",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "2",
-    firstName: "Mitsuya2",
-    lastName: "Watanabe2",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "3",
-    firstName: "Mitsuya3",
-    lastName: "Watanabe3",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "4",
-    firstName: "Mitsuya4",
-    lastName: "Watanabe4",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
+  // {
+  //   userId: "1",
+  //   firstName: "Mitsuya1",
+  //   lastName: "Watanabe1",
+  //   password: "asdfafa",
+  //   email: "mitsuya.watanabe85@gmail.com",
+  //   dateOfBirth: "06/08/2020",
+  // },
+  // {
+  //   userId: "2",
+  //   firstName: "Mitsuya2",
+  //   lastName: "Watanabe2",
+  //   password: "asdfafa",
+  //   email: "mitsuya.watanabe85@gmail.com",
+  //   dateOfBirth: "06/08/2020",
+  // },
+  // {
+  //   userId: "3",
+  //   firstName: "Mitsuya3",
+  //   lastName: "Watanabe3",
+  //   password: "asdfafa",
+  //   email: "mitsuya.watanabe85@gmail.com",
+  //   dateOfBirth: "06/08/2020",
+  // },
+  // {
+  //   userId: "4",
+  //   firstName: "Mitsuya4",
+  //   lastName: "Watanabe4",
+  //   password: "asdfafa",
+  //   email: "mitsuya.watanabe85@gmail.com",
+  //   dateOfBirth: "06/08/2020",
+  // },
 ];
 
 export const userModule = {
@@ -88,7 +88,7 @@ export const userModule = {
       return state.userList;
     },
     getUserById: (state) => (id) => {
-      return state.userList.filter((user) => user.userId === id)[0];
+      return state.userList.filter((user) => user.userId == id)[0];
     },
   },
 };
