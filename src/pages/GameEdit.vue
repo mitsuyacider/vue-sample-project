@@ -95,6 +95,7 @@ export default {
       "game/postGameEdit",
       "game/deleteGame",
       "ownership/deleteOwnership",
+      "ownership/postOwnershipEdit",
     ]),
     postGameEdit() {
       this.isGameEditLoading = true;
@@ -137,7 +138,19 @@ export default {
           .catch((err) => (this.isOwnershipLoading = false));
       }
     },
-    changeOwnershipState() {},
+    changeOwnershipState(data) {
+      // NOTE: Update state
+      this.isOwnershipLoading = true;
+      this["ownership/postOwnershipEdit"](data)
+        .then((e) => {
+          // NOTE: Apply update state to the row data.
+          const state = data.modified === "Grant" ? "granted" : "revoked";
+          data.state = state;
+
+          this.isOwnershipLoading = false;
+        })
+        .catch((err) => (this.isOwnershipLoading = false));
+    },
   },
 };
 </script>
