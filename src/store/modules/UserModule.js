@@ -68,10 +68,10 @@ export const userModule = {
         commit("getAllUser", mockUserList);
       }, 1000);
     },
-    deleteUser({ commit }, userId) {
-      setTimeout(() => {
-        commit("deleteUser", userId);
-      }, 1000);
+    async deleteUser({ commit }, userId) {
+      await deleteUser();
+      console.log("hallo");
+      commit("deleteUser", userId);
     },
     postUserEdit({ commit }, user) {
       setTimeout(() => {
@@ -87,4 +87,12 @@ export const userModule = {
       return 2;
     },
   },
+};
+
+const deleteUser = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 2000);
+  });
 };

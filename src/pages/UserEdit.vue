@@ -91,10 +91,11 @@ export default {
         `Are you sure you want to delete ${this.user.firstName}?`
       );
       if (isConfirmed) {
-        this["user/deleteUser"](this.user.userId);
-        const adminId = this.$route.params.adminId;
-        const nextPath = `/${adminId}/users`;
-        this.$router.push(nextPath);
+        this["user/deleteUser"](this.user.userId).then((e) => {
+          const adminId = this.$route.params.adminId;
+          const nextPath = `/${adminId}/users`;
+          this.$router.push(nextPath);
+        });
       }
     },
   },
