@@ -45,6 +45,7 @@
     <BaseModal
       :modalId="'game-ownership'"
       :title="'Grant ownership to users'"
+      :isLoading="isGrantModalLoading"
       ref="ownershipModal"
       @onClickCreate="grantOwnership"
     >
@@ -103,6 +104,7 @@ export default {
     return {
       isGameEditLoading: false,
       isOwnershipLoading: false,
+      isGrantModalLoading: false,
       game: {
         gameName: "",
       },
@@ -119,13 +121,10 @@ export default {
         (ownership) => ownership.gameId === gameId
       );
       const mergedOwnership = ownerships.map((ownership) => {
-        console.log("*** ownership.userId", ownership.userId);
         const user = store.getters["user/getUserById"](ownership.userId);
         ownership.user = user;
         return ownership;
       });
-
-      console.log("*** watch ownership list", mergedOwnership);
 
       this.ownerships = mergedOwnership;
     },
@@ -158,7 +157,6 @@ export default {
       }
     },
     setData(err, data) {
-      console.log("*** set data", data.gameInfo);
       this.game = data.gameInfo;
       this.ownerships = data.ownerships;
     },
@@ -200,13 +198,10 @@ export default {
         if (elm.checked) {
           // NOTE: If checked users already exist in the ownership list,
           // remove them from post data
-          const hasUser =
-            this.ownerships.filter((ownership) => ownership.userId === id)
-              .length > 0;
+          const isChecked = (ownership) => ownership.userId === id;
+          const hasUser = this.ownerships.filter(isChecked).length > 0;
 
-          if (!hasUser) {
-            userIds.push(id);
-          }
+          if (!hasUser) userIds.push(id);
         }
       });
 
@@ -214,7 +209,12 @@ export default {
         userIds,
         gameId: this.$route.params.gameId,
       };
-      this["ownership/addOwnerships"](data);
+
+      this.isGrantModalLoading = true;
+      this["ownership/addOwnerships"](data).then((e) => {
+        this.$refs.grantOwnershipModal.hideModal();
+        this.isGrantModalLoading = false;
+      });
     },
   },
 };

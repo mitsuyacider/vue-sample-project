@@ -7,13 +7,12 @@
     <BaseModal
       :modalId="triggerId"
       :title="'Create New Game'"
+      :isLoading="isCreateLoading"
       ref="gameCreateModal"
       @onClickCreate="createGame"
       @beforeShow="beforeModalShow"
     >
-      <b-overlay :show="isCreateLoading" rounded="sm">
-        <GameForm :game="game" />
-      </b-overlay>
+      <GameForm :game="game" />
     </BaseModal>
   </div>
 </template>

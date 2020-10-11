@@ -8,9 +8,11 @@
     @show="beforeShow"
     hide-footer
   >
-    <slot />
-    <b-button @click="hideModal">Cancel</b-button>
-    <b-button class="btn-success" @click="onClickCreate">Create</b-button>
+    <b-overlay :show="isLoading" rounded="sm">
+      <slot />
+      <b-button @click="hideModal">Cancel</b-button>
+      <b-button class="btn-success" @click="onClickCreate">Create</b-button>
+    </b-overlay>
   </b-modal>
 </template>
 
@@ -24,6 +26,10 @@ export default {
     title: {
       type: String,
       value: "",
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

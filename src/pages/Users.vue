@@ -9,10 +9,9 @@
       :title="'Create User'"
       ref="userCreateModal"
       @onClickCreate="createUser"
+      :isLoading="isCreateLoading"
     >
-      <b-overlay :show="isCreateLoading" rounded="sm">
-        <UserAccountForm :user="user" />
-      </b-overlay>
+      <UserAccountForm :user="user" />
     </BaseModal>
   </div>
 </template>

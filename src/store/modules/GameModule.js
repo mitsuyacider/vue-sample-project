@@ -74,7 +74,6 @@ export const gameModule = {
       return state.gameList;
     },
     getGameById: (state) => (gameId) => {
-      console.log("** get game by id", state.gameList);
       return state.gameList.filter((game) => game.gameId == gameId)[0];
     },
   },

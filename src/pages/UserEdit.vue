@@ -51,7 +51,10 @@ export default {
       return ownership;
     });
 
-    const mergedMock = Object.assign(mockUser, mergedOwnership);
+    const mockOwnershipList = {
+      ownerships: mergedOwnership,
+    };
+    const mergedMock = Object.assign(mockUser, mockOwnershipList);
 
     next((vm) => vm.setData(null, mergedMock));
   },
