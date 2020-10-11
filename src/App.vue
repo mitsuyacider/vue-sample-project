@@ -20,7 +20,7 @@ import Main from "@/components/Main";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SideMenu from "@/components/SideMenu";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -38,14 +38,26 @@ export default {
   computed: {
     ...mapGetters(["hasAdminData", "adminData"]),
   },
+
   mounted() {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
-      const path = `/${this.adminData.userId}/games/`;
+      const path = `/${this.adminData.userId}/games`;
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       const path = "/";
       if (this.$route && this.$route.path !== path) this.$router.replace("/");
     }
+
+    this["user/getAllUser"]();
+    this["game/getAllGame"]();
+    this["ownership/getAllOwnership"]();
+  },
+  methods: {
+    ...mapActions([
+      "ownership/getAllOwnership",
+      "user/getAllUser",
+      "game/getAllGame",
+    ]),
   },
 };
 </script>

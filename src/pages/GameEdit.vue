@@ -16,7 +16,17 @@
 
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
-      <div class="mb-1"><span>Ownership Users</span></div>
+      <div class="row mt-4">
+        <div class="col-md-8">
+          <div class="mb-1"><span>Ownerships</span></div>
+        </div>
+        <div class="col-md-4 mb-1">
+          <b-button v-b-modal="'game-ownership'" class="btn btn-success"
+            >Add</b-button
+          >
+        </div>
+      </div>
+
       <OwnershipList
         :ownerships="ownerships"
         :listType="'user'"
@@ -25,6 +35,16 @@
         @onChangeState="changeOwnershipState"
       />
     </div>
+
+    <!-- Ownership modal -->
+    <BaseModal
+      :modalId="'game-ownership'"
+      :title="'Grant ownership to users'"
+      ref="ownershipModal"
+      @onClickCreate="grantOwnership"
+    >
+      <GrantUserList refs="grantUserList" />
+    </BaseModal>
   </div>
 </template>
 
@@ -33,38 +53,29 @@ import OwnershipList from "@/components/OwnershipList";
 import GameForm from "@/components/GameForm";
 import EditButtonGroup from "@/components/EditButtonGroup";
 import StaticEditName from "@/components/StaticEditName";
+import BaseModal from "@/components/BaseModal";
+import GrantUserList from "@/components/GrantUserList";
+
 import { mapActions, mapGetters } from "vuex";
+import store from "@/store";
 
 export default {
   beforeRouteEnter(to, from, next) {
-    const mockGame = {
-      gameInfo: {
-        gameId: to.params.gameId,
-        gameName: "Acme Game",
-        ageRestriction: 18,
-        thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-      },
-    };
+    const gameInfo = store.getters["game/getGameById"](to.params.gameId);
+    const mockGame = { gameInfo };
+
+    const ownerships = store.getters["ownership/getOwnershipListByGameId"](
+      to.params.gameId
+    );
+
+    const mergedOwnership = ownerships.map((ownership) => {
+      const user = store.getters["user/getUserById"](ownership.userId);
+      ownership.user = user;
+      return ownership;
+    });
 
     const mockOwnershipGameList = {
-      ownerships: [
-        {
-          ownershipId: "1",
-          gameId: "1",
-          userId: "1",
-          state: "granted",
-          registeredDate: "2020-08-06",
-          userName: "Mitsuya Watanabe",
-        },
-        {
-          ownershipId: "2",
-          gameId: "1",
-          userId: "2",
-          state: "granted",
-          registeredDate: "2020-08-06",
-          userName: "Mitsuya Watanabe",
-        },
-      ],
+      ownerships: mergedOwnership,
     };
 
     const mergedMock = Object.assign(mockGame, mockOwnershipGameList);
@@ -74,11 +85,14 @@ export default {
     //   next((vm) => vm.setData(err, post));
     // });
   },
+
   components: {
     OwnershipList,
     GameForm,
     EditButtonGroup,
     StaticEditName,
+    BaseModal,
+    GrantUserList,
   },
   data() {
     return {
@@ -88,7 +102,28 @@ export default {
         gameName: "",
       },
       ownerships: [],
+      dummy: "dymm",
     };
+  },
+  watch: {
+    "$store.state.ownership.ownershipList": function(newVal, oldVal) {
+      const gameId = this.$route.params.gameId;
+      const gameInfo = store.getters["game/getGameById"](gameId);
+      const mockGame = { gameInfo };
+
+      const ownerships = newVal.filter(
+        (ownership) => ownership.gameId === gameId
+      );
+      const mergedOwnership = ownerships.map((ownership) => {
+        const user = store.getters["user/getUserById"](ownership.userId);
+        ownership.user = user;
+        return ownership;
+      });
+
+      console.log(mergedOwnership);
+
+      this.ownerships = mergedOwnership;
+    },
   },
   methods: {
     ...mapActions([
@@ -96,6 +131,7 @@ export default {
       "game/deleteGame",
       "ownership/deleteOwnership",
       "ownership/postOwnershipEdit",
+      "ownership/addOwnerships",
     ]),
     postGameEdit() {
       this.isGameEditLoading = true;
@@ -103,7 +139,6 @@ export default {
       this["game/postGameEdit"](this.game)
         .then((e) => (this.isGameEditLoading = false))
         .catch((err) => (this.isGameEditLoading = false));
-      console.log("** post game edit ", this.game);
     },
     deleteGame() {
       const isConfirmed = confirm(
@@ -128,13 +163,7 @@ export default {
       if (isConfirmed) {
         this.isOwnershipLoading = true;
         this["ownership/deleteOwnership"](data.ownershipId)
-          .then((e) => {
-            const deleteOwnershipIndex = this.ownerships.findIndex(
-              (ownership) => ownership.ownershipId === data.ownershipId
-            );
-            this.ownerships.splice(deleteOwnershipIndex, 1);
-            this.isOwnershipLoading = false;
-          })
+          .then((e) => (this.isOwnershipLoading = false))
           .catch((err) => (this.isOwnershipLoading = false));
       }
     },
@@ -150,6 +179,24 @@ export default {
           this.isOwnershipLoading = false;
         })
         .catch((err) => (this.isOwnershipLoading = false));
+    },
+    grantOwnership() {
+      const elmCheckbox = document.querySelectorAll(
+        "[data-grant-user-checkbox]"
+      );
+      const userIds = [];
+      elmCheckbox.forEach((elm) => {
+        if (elm.checked) {
+          const id = elm.dataset.userId;
+          userIds.push(id);
+        }
+      });
+
+      const data = {
+        userIds,
+        gameId: this.$route.params.gameId,
+      };
+      this["ownership/addOwnerships"](data);
     },
   },
 };

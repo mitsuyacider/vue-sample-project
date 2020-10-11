@@ -16,7 +16,7 @@
 
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
-      <div class="mb-1"><span>Ownership Games</span></div>
+      <div class="mb-1"><span>Ownership of Games</span></div>
       <OwnershipList
         :ownerships="ownerships"
         :isLoading="isOwnershipLoading"

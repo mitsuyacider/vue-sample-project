@@ -86,9 +86,6 @@ export default {
         self.game.thumbnail = fr.result;
       };
       fr.readAsDataURL(fileData);
-      //       console.log("Filename: " + files[0].name);
-      // console.log("Type: " + files[0].type);
-      // console.log("Size: " + files[0].size + " bytes");
     },
   },
 };

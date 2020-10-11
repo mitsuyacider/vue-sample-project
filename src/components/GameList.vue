@@ -43,11 +43,9 @@ export default {
       isLoading: false,
     };
   },
-  mounted() {
-    this["game/getAllGame"]();
-  },
+
   methods: {
-    ...mapActions(["game/getAllGame", "game/deleteGame"]),
+    ...mapActions(["game/deleteGame"]),
     deleteGame(data) {
       const isConfirmed = confirm(
         `Are you sure you want to delete ${data.gameName}?`

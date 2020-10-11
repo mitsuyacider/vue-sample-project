@@ -44,25 +44,55 @@ export const ownershipModule = {
   }),
   mutations: {
     deleteOwnership(state, ownershipId) {
-      const userList = state.ownershipList;
-      const deleteUserIndex = ownershipList.findIndex(
+      const ownershipList = state.ownershipList;
+      const deleteOwnershipListIndex = ownershipList.findIndex(
         (ownership) => ownership.ownershipId === ownershipId
       );
-      userList.splice(deleteUserIndex, 1);
+      ownershipList.splice(deleteOwnershipListIndex, 1);
+    },
+    setAllOwnership(state, data) {
+      state.ownershipList = data;
+    },
+    setOwnerships(state, data) {
+      const ownershipList = state.ownershipList;
+      state.ownershipList.push(data);
     },
   },
   actions: {
     async deleteOwnership({ commit }, ownershipId) {
       await deleteOwnership();
-      // commit("deleteOwnership", ownershipId);
+      commit("deleteOwnership", ownershipId);
     },
     async postOwnershipEdit({ commit }, ownership) {
       await postOwnershipEdit();
+    },
+    async getAllOwnership({ commit }) {
+      await getAllOwnership();
+      commit("setAllOwnership", mockOwnershipList);
+    },
+    async addOwnerships({ commit }, data) {
+      await addOwnerships();
+      const ownershipId = Math.floor(Math.random() * 100);
+
+      const ownersip = {
+        ownershipId,
+        userId: "2",
+        gameId: data.gameId,
+        state: "granted",
+        registeredDate: "08/10/2020",
+      };
+
+      commit("setOwnerships", ownersip);
     },
   },
   getters: {
     ownershipList(state) {
       return state.ownershipList;
+    },
+    getOwnershipListByGameId: (state) => (gameId) => {
+      return state.ownershipList.filter(
+        (ownership) => ownership.gameId === gameId
+      );
     },
   },
 };
@@ -75,7 +105,23 @@ const postOwnershipEdit = () => {
   });
 };
 
+const getAllOwnership = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 0);
+  });
+};
+
 const deleteOwnership = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 2000);
+  });
+};
+
+const addOwnerships = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");

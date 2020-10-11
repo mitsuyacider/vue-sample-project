@@ -43,8 +43,6 @@ export const gameModule = {
           // NOTE: Assign updated data to game list
           return Object.assign(game, editedGame);
         });
-
-      console.log("*** gamelist", gameList);
     },
     createGame(state, newGame) {
       state.gameList.push(newGame);
@@ -74,6 +72,9 @@ export const gameModule = {
   getters: {
     gameList(state) {
       return state.gameList;
+    },
+    getGameById: (state) => (gameId) => {
+      return state.gameList.filter((game) => game.gameId === gameId)[0];
     },
   },
 };

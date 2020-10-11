@@ -43,9 +43,6 @@ export default {
       isLoading: false,
     };
   },
-  mounted() {
-    this["user/getAllUser"]();
-  },
   methods: {
     ...mapActions(["user/getAllUser", "user/deleteUser"]),
     deleteUser(user) {

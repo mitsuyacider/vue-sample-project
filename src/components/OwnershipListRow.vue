@@ -2,7 +2,13 @@
   <BaseListRow>
     <tr>
       <!-- Game Name / User Name -->
-      <td>{{ listType === "game" ? rowData.gameName : rowData.userName }}</td>
+      <td>
+        {{
+          listType === "game"
+            ? rowData.gameName
+            : rowData.user.firstName + " " + rowData.user.lastName
+        }}
+      </td>
 
       <!-- State (Granted / Revoked) -->
       <td>
