@@ -17,6 +17,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
         style="right:10px;"
+        @click="(e) => this.$emit('onClickSideBarMenu')"
       >
         <span class="navbar-toggler-icon"></span>
       </button>

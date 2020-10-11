@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <div class="wrap">
-      <Header />
+      <Header @onClickSideBarMenu="handleOnClickSideBarMenu" />
       <div v-if="this.hasAdminData">
         <div class="row mr-0 ml-0">
-          <SideMenu />
+          <SideMenu :isShowBarSideMenu="isShowBarSideMenu" />
           <Main />
         </div>
       </div>
@@ -33,12 +33,12 @@ export default {
   data() {
     return {
       isLoggedIn: false,
+      isShowBarSideMenu: false, // For mobile setting
     };
   },
   computed: {
     ...mapGetters(["hasAdminData", "adminData"]),
   },
-
   mounted() {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
       const path = `/${this.adminData.userId}/dashboard`;
@@ -58,6 +58,14 @@ export default {
       "user/getAllUser",
       "game/getAllGame",
     ]),
+    handleOnClickSideBarMenu() {
+      this.isShowBarSideMenu = !this.isShowBarSideMenu;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      this.isShowBarSideMenu = false;
+    },
   },
 };
 </script>

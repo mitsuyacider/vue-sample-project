@@ -212,7 +212,8 @@ export default {
 
       this.isGrantModalLoading = true;
       this["ownership/addOwnerships"](data).then((e) => {
-        this.$refs.grantOwnershipModal.hideModal();
+        console.log("** grant ownership");
+        this.$refs.ownershipModal.hideModal();
         this.isGrantModalLoading = false;
       });
     },

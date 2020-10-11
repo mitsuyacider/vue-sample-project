@@ -24,6 +24,12 @@
         @onClickTrash="deleteOwnership"
         @onChangeState="changeOwnershipState"
       />
+
+      <!-- There is no ownership data -->
+      <div v-else>
+        There is no ownership data for this user. Go to games menu from side
+        menu and grant ownership of games to this user.
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +52,7 @@ export default {
       userId
     );
     const mergedOwnership = ownerships.map((ownership) => {
-      const user = store.getters["game/getGameById"](ownership.gameId);
+      const game = store.getters["game/getGameById"](ownership.gameId);
       ownership.game = game;
       return ownership;
     });
@@ -87,6 +93,7 @@ export default {
       "ownership/postOwnershipEdit",
     ]),
     getName() {
+      if (!this.user) return "";
       // NOTE: Remove all white spaces in the input field
       const firstName = this.user.firstName.replace(/\s+/g, "");
       const lastName = this.user.lastName.replace(/\s+/g, "");

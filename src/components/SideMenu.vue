@@ -2,6 +2,7 @@
   <nav
     id="sidebarMenu"
     class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+    :class="{ show: isShowBarSideMenu }"
   >
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
@@ -54,16 +55,27 @@ import SideMenuItem from "@/components/SideMenuItem";
 import BaseIcon from "@/components/BaseIcon";
 
 export default {
+  props: {
+    isShowBarSideMenu: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     SideMenuItem,
     BaseIcon,
   },
-  mounted() {},
 };
 </script>
 
 <style lang="scss" scoped>
 nav {
   min-height: calc(100vh - #{$headerHeight} - #{$footerHeight});
+}
+nav.show {
+  position: absolute;
+  z-index: 1;
+  min-height: 0;
+  padding-bottom: 20px;
 }
 </style>

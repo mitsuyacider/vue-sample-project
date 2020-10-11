@@ -5,7 +5,7 @@
       <td>
         {{
           listType === "game"
-            ? rowData.gameName
+            ? rowData.game.gameName
             : rowData.user.firstName + " " + rowData.user.lastName
         }}
       </td>
