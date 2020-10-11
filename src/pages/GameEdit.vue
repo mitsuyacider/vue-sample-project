@@ -43,7 +43,7 @@
       ref="ownershipModal"
       @onClickCreate="grantOwnership"
     >
-      <GrantUserList refs="grantUserList" />
+      <GrantUserList refs="grantUserList" :currentList="ownerships" />
     </BaseModal>
   </div>
 </template>
@@ -81,9 +81,6 @@ export default {
     const mergedMock = Object.assign(mockGame, mockOwnershipGameList);
 
     next((vm) => vm.setData(null, mergedMock));
-    // getPost(to.params.id, (err, post) => {
-    //   next((vm) => vm.setData(err, post));
-    // });
   },
 
   components: {
@@ -102,7 +99,6 @@ export default {
         gameName: "",
       },
       ownerships: [],
-      dummy: "dymm",
     };
   },
   watch: {
@@ -119,8 +115,6 @@ export default {
         ownership.user = user;
         return ownership;
       });
-
-      console.log(mergedOwnership);
 
       this.ownerships = mergedOwnership;
     },
@@ -181,14 +175,26 @@ export default {
         .catch((err) => (this.isOwnershipLoading = false));
     },
     grantOwnership() {
+      // NOTE: Grab all checkbox
       const elmCheckbox = document.querySelectorAll(
         "[data-grant-user-checkbox]"
       );
+
+      // NOTE: Extract cehcked user
       const userIds = [];
       elmCheckbox.forEach((elm) => {
+        const id = elm.dataset.userId;
+
         if (elm.checked) {
-          const id = elm.dataset.userId;
-          userIds.push(id);
+          // NOTE: If checked users already exist in the ownership list,
+          // remove them from post data
+          const hasUser =
+            this.ownerships.filter((ownership) => ownership.userId === id)
+              .length > 0;
+
+          if (!hasUser) {
+            userIds.push(id);
+          }
         }
       });
 

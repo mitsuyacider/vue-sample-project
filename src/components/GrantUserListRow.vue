@@ -7,6 +7,7 @@
           aria-label="Checkbox for following text input"
           data-grant-user-checkbox
           :data-user-id="user.userId"
+          :checked="isChecked"
         />
       </th>
       <th>{{ user.userId }}</th>
@@ -27,6 +28,10 @@ export default {
     user: {
       type: Object,
       value: "",
+    },
+    isChecked: {
+      type: Boolean,
+      default: false,
     },
   },
 };

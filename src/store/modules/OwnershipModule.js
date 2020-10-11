@@ -54,8 +54,10 @@ export const ownershipModule = {
       state.ownershipList = data;
     },
     setOwnerships(state, data) {
-      const ownershipList = state.ownershipList;
-      state.ownershipList.push(data);
+      if (data && data.length > 0) {
+        const ownershipList = state.ownershipList;
+        state.ownershipList.push(...data);
+      }
     },
   },
   actions: {
@@ -72,17 +74,22 @@ export const ownershipModule = {
     },
     async addOwnerships({ commit }, data) {
       await addOwnerships();
-      const ownershipId = Math.floor(Math.random() * 100);
 
-      const ownersip = {
-        ownershipId,
-        userId: "2",
-        gameId: data.gameId,
-        state: "granted",
-        registeredDate: "08/10/2020",
-      };
+      const userIds = data.userIds;
+      const items = userIds.map((userId) => {
+        const ownershipId = Math.floor(Math.random() * 100);
+        const ownership = {
+          ownershipId,
+          userId,
+          gameId: data.gameId,
+          state: "granted",
+          registeredDate: new Date(),
+        };
 
-      commit("setOwnerships", ownersip);
+        return ownership;
+      });
+
+      commit("setOwnerships", items);
     },
   },
   getters: {
