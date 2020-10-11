@@ -2,7 +2,7 @@
   <BaseListRow>
     <tr>
       <!-- Game Name / User Name -->
-      <td>{{ rowData.gameName }}</td>
+      <td>{{ listType === "game" ? rowData.gameName : rowData.userName }}</td>
 
       <!-- State (Granted / Invoked) -->
       <td>
@@ -49,6 +49,10 @@ export default {
     index: {
       type: Number,
       value: 0,
+    },
+    listType: {
+      type: String,
+      default: "game",
     },
   },
   methods: {

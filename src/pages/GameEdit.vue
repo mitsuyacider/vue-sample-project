@@ -16,8 +16,14 @@
 
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
-      <div class="mb-1"><span>Ownerships</span></div>
-      <OwnershipList />
+      <div class="mb-1"><span>Ownership Users</span></div>
+      <OwnershipList
+        :ownerships="ownerships"
+        :listType="'user'"
+        :isLoading="isOwnershipLoading"
+        @onClickTrash="deleteOwnership"
+        @onChangeState="changeOwnershipState"
+      />
     </div>
   </div>
 </template>
@@ -77,6 +83,7 @@ export default {
   data() {
     return {
       isGameEditLoading: false,
+      isOwnershipLoading: false,
       game: {
         gameName: "",
       },
@@ -84,7 +91,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["game/postGameEdit", "game/deleteGame"]),
+    ...mapActions([
+      "game/postGameEdit",
+      "game/deleteGame",
+      "ownership/deleteOwnership",
+    ]),
     postGameEdit() {
       this.isGameEditLoading = true;
 
@@ -109,6 +120,24 @@ export default {
       this.game = data.gameInfo;
       this.ownerships = data.ownerships;
     },
+    deleteOwnership(data) {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ownership of ${data.userName}?`
+      );
+      if (isConfirmed) {
+        this.isOwnershipLoading = true;
+        this["ownership/deleteOwnership"](data.ownershipId)
+          .then((e) => {
+            const deleteOwnershipIndex = this.ownerships.findIndex(
+              (ownership) => ownership.ownershipId === data.ownershipId
+            );
+            this.ownerships.splice(deleteOwnershipIndex, 1);
+            this.isOwnershipLoading = false;
+          })
+          .catch((err) => (this.isOwnershipLoading = false));
+      }
+    },
+    changeOwnershipState() {},
   },
 };
 </script>

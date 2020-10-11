@@ -8,6 +8,7 @@
           :key="ownership.ownershipId"
           :rowData="ownership"
           :index="index"
+          :listType="listType"
           @onClickTrash="handleOnClickTrash"
           @onChangeState="handleOnChangeState"
         />
@@ -32,6 +33,10 @@ export default {
     isLoading: {
       type: Boolean,
       default: false,
+    },
+    listType: {
+      type: String,
+      default: "game",
     },
   },
   components: {
