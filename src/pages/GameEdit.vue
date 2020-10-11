@@ -84,7 +84,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["game/postGameEdit"]),
+    ...mapActions(["game/postGameEdit", "game/deleteGame"]),
     postGameEdit() {
       this.isGameEditLoading = true;
 
@@ -93,7 +93,18 @@ export default {
         .catch((err) => (this.isGameEditLoading = false));
       console.log("** post game edit ", this.game);
     },
-    deleteGame() {},
+    deleteGame() {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ${this.game.gameName}?`
+      );
+      if (isConfirmed) {
+        this["game/deleteGame"](this.game.gameId).then((e) => {
+          const adminId = this.$route.params.adminId;
+          const nextPath = `/${adminId}/games`;
+          this.$router.push(nextPath);
+        });
+      }
+    },
     setData(err, data) {
       this.game = data.gameInfo;
       this.ownerships = data.ownerships;
