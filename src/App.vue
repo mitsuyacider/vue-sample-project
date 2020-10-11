@@ -40,7 +40,7 @@ export default {
   },
   mounted() {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
-      const path = `/${this.adminData.userId}/users/1234/edit`;
+      const path = `/${this.adminData.userId}/users/1/edit`;
       if (this.$route && this.$route.path !== path) this.$router.push(path);
     } else {
       const path = "/";

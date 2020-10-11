@@ -8,7 +8,7 @@
           class="form-control"
           id="firstName"
           placeholder="First Name"
-          :value="user.firstName"
+          v-model="user.firstName"
           required=""
         />
         <div class="invalid-feedback">
@@ -22,7 +22,7 @@
           class="form-control"
           id="lastName"
           placeholder="Last Name"
-          :value="user.lastName"
+          v-model="user.lastName"
           required=""
         />
         <div class="invalid-feedback">
@@ -37,7 +37,7 @@
         class="form-control"
         id="email"
         placeholder="you@example.com"
-        :value="user.email"
+        v-model="user.email"
         required=""
       />
       <div class="invalid-feedback">
@@ -50,7 +50,7 @@
         type="date"
         class="form-control"
         id="birthday"
-        :value="user.dateOfBirth"
+        v-model="user.dateOfBirth"
         required=""
       />
       <div class="invalid-feedback">

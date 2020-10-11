@@ -1,7 +1,11 @@
 <template>
   <div class="row">
     <div class="col-md-6 mb-3">
-      <button class="col-md-12 btn btn-success" type="button">
+      <button
+        class="col-md-12 btn btn-success"
+        type="button"
+        v-on:click="(e) => this.$emit('onClickSuccess')"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

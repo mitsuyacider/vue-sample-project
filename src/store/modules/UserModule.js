@@ -50,6 +50,17 @@ export const userModule = {
       );
       userList.splice(deleteUserIndex, 1);
     },
+    postUserEdit(state, editedUser) {
+      const userList = state.userList;
+      userList
+        .filter((user) => editedUser.userId === user.userId)
+        .map((user) => {
+          console.log("**hhhhh");
+          return Object.assign(user, editedUser);
+        });
+
+      console.log(userList);
+    },
   },
   actions: {
     getAllUser({ commit }) {
@@ -60,6 +71,11 @@ export const userModule = {
     deleteUser({ commit }, userId) {
       setTimeout(() => {
         commit("deleteUser", userId);
+      }, 1000);
+    },
+    postUserEdit({ commit }, user) {
+      setTimeout(() => {
+        commit("postUserEdit", user);
       }, 1000);
     },
   },
