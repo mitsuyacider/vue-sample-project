@@ -1,16 +1,19 @@
 <template>
   <div>
-    <BaseListTable>
-      <OwnershipListHeader />
-      <OwnershipListRow
-        v-for="ownership in this.ownerships"
-        :key="ownership.ownershipId"
-        :rowData="ownership"
-        @onClickTrash="handleOnClickTrash"
-        @onChangeState="handleOnChangeState"
-      />
-    </BaseListTable>
-    <Pagination />
+    <b-overlay :show="isLoading" rounded="sm">
+      <BaseListTable>
+        <OwnershipListHeader />
+        <OwnershipListRow
+          v-for="(ownership, index) in this.ownerships"
+          :key="ownership.ownershipId"
+          :rowData="ownership"
+          :index="index"
+          @onClickTrash="handleOnClickTrash"
+          @onChangeState="handleOnChangeState"
+        />
+      </BaseListTable>
+      <Pagination />
+    </b-overlay>
   </div>
 </template>
 
@@ -25,6 +28,10 @@ export default {
     ownerships: {
       type: Array,
       value: [],
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {

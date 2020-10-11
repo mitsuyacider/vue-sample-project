@@ -11,6 +11,7 @@
       <div class="mb-1"><span>Ownership Games</span></div>
       <OwnershipList
         :ownerships="ownerships"
+        :isLoading="isOwnershipLoading"
         @onClickTrash="deleteOwnership"
         @onChangeState="changeOwnershipState"
       />
@@ -85,7 +86,7 @@ export default {
         lastName: "",
       },
       ownerships: [],
-      loading: false,
+      isOwnershipLoading: false,
     };
   },
   mounted() {
@@ -140,21 +141,30 @@ export default {
         `Are you sure you want to delete ownership of ${data.gameName}?`
       );
       if (isConfirmed) {
-        this["ownership/deleteOwnership"](data.ownershipId).then((e) => {
-          const deleteOwnershipIndex = this.ownerships.findIndex(
-            (ownership) => ownership.ownershipId === data.ownershipId
-          );
-          this.ownerships.splice(deleteOwnershipIndex, 1);
-        });
+        this.isOwnershipLoading = true;
+        this["ownership/deleteOwnership"](data.ownershipId)
+          .then((e) => {
+            const deleteOwnershipIndex = this.ownerships.findIndex(
+              (ownership) => ownership.ownershipId === data.ownershipId
+            );
+            this.ownerships.splice(deleteOwnershipIndex, 1);
+            this.isOwnershipLoading = false;
+          })
+          .catch((err) => (this.isOwnershipLoading = false));
       }
     },
     changeOwnershipState(data) {
       // NOTE: Update state
-      this["ownership/deleteOwnership"](data.ownershipId).then((e) => {
-        // NOTE: Apply update state to the row data.
-        const state = data.modified === "Grant" ? "granted" : "invoked";
-        data.state = state;
-      });
+      this.isOwnershipLoading = true;
+      this["ownership/deleteOwnership"](data.ownershipId)
+        .then((e) => {
+          // NOTE: Apply update state to the row data.
+          const state = data.modified === "Grant" ? "granted" : "invoked";
+          data.state = state;
+
+          this.isOwnershipLoading = false;
+        })
+        .catch((err) => (this.isOwnershipLoading = false));
     },
   },
 };
