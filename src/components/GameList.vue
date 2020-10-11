@@ -1,16 +1,22 @@
 <template>
   <div>
     <b-overlay :show="isLoading" rounded="sm">
-      <BaseListTable>
-        <GameListHeader />
-        <GameListRow
-          v-for="game in this['game/gameList']"
-          :key="game.gameId"
-          :rowData="game"
-        />
-      </BaseListTable>
+      <div v-if="this['game/gameList'].length > 0">
+        <BaseListTable>
+          <GameListHeader />
+          <GameListRow
+            v-for="game in this['game/gameList']"
+            :key="game.gameId"
+            :rowData="game"
+            @onClickTrash="deleteGame"
+          />
+        </BaseListTable>
 
-      <Pagination />
+        <Pagination />
+      </div>
+      <div v-else>
+        There is no game data. Let's create a new Game!
+      </div>
     </b-overlay>
   </div>
 </template>
@@ -41,7 +47,19 @@ export default {
     this["game/getAllGame"]();
   },
   methods: {
-    ...mapActions(["game/getAllGame"]),
+    ...mapActions(["game/getAllGame", "game/deleteGame"]),
+    deleteGame(data) {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ${data.gameName}?`
+      );
+
+      if (isConfirmed) {
+        this.isLoading = true;
+        this["game/deleteGame"](data.gameId)
+          .then((e) => (this.isLoading = false))
+          .catch((err) => (this.isLoading = false));
+      }
+    },
   },
 };
 </script>

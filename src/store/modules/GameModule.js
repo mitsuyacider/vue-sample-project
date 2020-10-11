@@ -30,8 +30,8 @@ export const gameModule = {
     },
     deleteGame(state, gameId) {
       const gameList = state.gameList;
-      const deleteUserIndex = gameList.findIndex(
-        (game) => game.userId === gameId
+      const deleteGameIndex = gameList.findIndex(
+        (game) => game.gameId === gameId
       );
       gameList.splice(deleteGameIndex, 1);
     },

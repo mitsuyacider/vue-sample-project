@@ -51,9 +51,7 @@ export default {
     deleteUser(user) {
       this.isLoading = true;
       this["user/deleteUser"](user.userId)
-        .then((e) => {
-          this.isLoading = false;
-        })
+        .then((e) => (this.isLoading = false))
         .catch((err) => (this.isLoading = false));
     },
   },

@@ -10,7 +10,10 @@
       </td>
       <td>{{ rowData.ageRestriction }}</td>
       <td>
-        <b-icon icon="trash"></b-icon>
+        <b-icon
+          icon="trash"
+          v-on:click="(e) => this.$emit('onClickTrash', this.rowData)"
+        ></b-icon>
         <router-link
           :to="`/${this.$route.params.adminId}/users/${rowData.gameId}/edit`"
           ><b-icon icon="pencil-square"></b-icon
