@@ -4,7 +4,12 @@
       <td>{{ rowData.gameId }}</td>
       <td>
         <div class="d-flex align-items-center">
-          <img src="http://placehold.jp/24/cc9999/993333/80x50.png" alt="" />
+          <img
+            v-if="rowData.thumbnail !== ''"
+            :src="rowData.thumbnail"
+            alt="thumbnail"
+            class="thumbnail"
+          />
           <span class="ml-2">{{ rowData.gameName }}</span>
         </div>
       </td>
@@ -37,3 +42,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.thumbnail {
+  width: 80px;
+  height: 60px;
+}
+</style>

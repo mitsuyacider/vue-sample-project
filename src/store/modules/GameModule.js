@@ -3,19 +3,19 @@ const mockGameList = [
     gameId: "1",
     gameName: "Acme Game",
     ageRestriction: 18,
-    thumbnail: "path/to/thumbnail.jpg",
+    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
   },
   {
     gameId: "2",
     gameName: "Acme Game",
     ageRestriction: 18,
-    thumbnail: "path/to/thumbnail.jpg",
+    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
   },
   {
     gameId: "3",
     gameName: "Acme Game",
     ageRestriction: 18,
-    thumbnail: "path/to/thumbnail.jpg",
+    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
   },
 ];
 

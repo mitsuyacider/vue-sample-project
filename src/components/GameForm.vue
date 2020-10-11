@@ -45,12 +45,15 @@
             class="form-control-file d-none"
             id="thumbnail"
             accept="image/x-png,image/jpeg"
+            @change="handleFileChange"
+            multiple
           />
           <img
-            class="mt-2"
-            v-if="game.thumbnail"
+            v-show="game.thumbnail"
             :src="game.thumbnail"
             alt="thumbnail"
+            data-thumbnail
+            ref="gameThumbnail"
           />
         </label>
       </div>
@@ -68,6 +71,24 @@ export default {
     game: {
       type: Object,
       value: "",
+    },
+  },
+
+  methods: {
+    handleFileChange(e) {
+      const fileData = e.target.files[0];
+      const elmThumbnail = this.$refs.gameThumbnail;
+
+      const fr = new FileReader();
+      const self = this;
+      fr.onload = function() {
+        elmThumbnail.src = fr.result;
+        self.game.thumbnail = fr.result;
+      };
+      fr.readAsDataURL(fileData);
+      //       console.log("Filename: " + files[0].name);
+      // console.log("Type: " + files[0].type);
+      // console.log("Size: " + files[0].size + " bytes");
     },
   },
 };

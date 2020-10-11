@@ -5,6 +5,7 @@
     :title="title"
     :ref="'create-modal-' + modalId"
     @ok="(e) => this.$emit('onClickOk')"
+    @show="beforeShow"
     hide-footer
   >
     <slot />
@@ -31,6 +32,9 @@ export default {
     },
     onClickCreate() {
       this.$emit("onClickCreate");
+    },
+    beforeShow() {
+      this.$emit("beforeShow");
     },
   },
 };

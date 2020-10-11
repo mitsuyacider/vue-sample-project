@@ -6,9 +6,10 @@
     <!-- Create game modal -->
     <BaseModal
       :modalId="triggerId"
-      :title="'Create Game'"
+      :title="'Create New Game'"
       ref="gameCreateModal"
       @onClickCreate="createGame"
+      @beforeShow="beforeModalShow"
     >
       <b-overlay :show="isCreateLoading" rounded="sm">
         <GameForm :game="game" />
@@ -51,6 +52,14 @@ export default {
         this.isCreateLoading = false;
         this.$refs.gameCreateModal.hideModal();
       });
+    },
+    beforeModalShow() {
+      // NOTE: Reset game data
+      this.game = {
+        gameName: "",
+        ageRestriction: null,
+        thumbnail: "",
+      };
     },
   },
 };
