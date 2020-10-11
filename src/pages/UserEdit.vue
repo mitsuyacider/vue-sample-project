@@ -13,7 +13,10 @@
     </div>
 
     <!-- Edit button (Delete / Save) -->
-    <EditButtonGroup @onClickSuccess="postUserEdit" />
+    <EditButtonGroup
+      @onClickSuccess="postUserEdit"
+      @onClickDelete="deleteUser"
+    />
   </div>
 </template>
 
@@ -59,7 +62,7 @@ export default {
     this["user/getAllUser"]();
   },
   methods: {
-    ...mapActions(["user/getAllUser", "user/postUserEdit"]),
+    ...mapActions(["user/getAllUser", "user/postUserEdit", "user/deleteUser"]),
     getName() {
       // NOTE: Remove all white spaces in the input field
       const firstName = this.user.firstName.replace(/\s+/g, "");
@@ -82,6 +85,17 @@ export default {
     },
     postUserEdit() {
       this["user/postUserEdit"](this.user);
+    },
+    deleteUser() {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ${this.user.firstName}?`
+      );
+      if (isConfirmed) {
+        this["user/deleteUser"](this.user.userId);
+        const adminId = this.$route.params.adminId;
+        const nextPath = `/${adminId}/users`;
+        this.$router.push(nextPath);
+      }
     },
   },
 };

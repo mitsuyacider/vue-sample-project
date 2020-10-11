@@ -25,7 +25,11 @@
       </button>
     </div>
     <div class="col-md-6 mb-3">
-      <button class="col-md-12 btn btn-outline-danger" type="button">
+      <button
+        class="col-md-12 btn btn-outline-danger"
+        type="button"
+        v-on:click="(e) => this.$emit('onClickDelete')"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

@@ -42,7 +42,6 @@ export default {
   methods: {
     ...mapActions(["user/getAllUser", "user/deleteUser"]),
     deleteUser(user) {
-      console.log(user);
       this["user/deleteUser"](user.userId);
     },
   },
