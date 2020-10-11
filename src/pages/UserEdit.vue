@@ -15,11 +15,12 @@
     </b-overlay>
 
     <!-- Ownership game list related to the editing user account -->
-    <div class="mt-5">
+    <div class="mt-5" v-if="this['game/gameList'].length > 0">
       <div class="mb-1"><span>Ownership of Games</span></div>
       <OwnershipList
         :ownerships="ownerships"
         :isLoading="isOwnershipLoading"
+        v-if="ownerships.length > 0"
         @onClickTrash="deleteOwnership"
         @onChangeState="changeOwnershipState"
       />
@@ -32,54 +33,36 @@ import OwnershipList from "@/components/OwnershipList";
 import UserAccountForm from "@/components/UserAccountForm";
 import EditButtonGroup from "@/components/EditButtonGroup";
 import StaticEditName from "@/components/StaticEditName";
+import store from "@/store";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   beforeRouteEnter(to, from, next) {
-    const mockUser = {
-      userInfo: {
-        userId: to.params.userId,
-        firstName: "Mitsuya",
-        lastName: "Watanabe",
-        password: "asdfafa",
-        email: "mitsuya.watanabe85@gmail.com",
-        dateOfBirth: "2020-08-06",
-      },
-    };
+    const userId = to.params.userId;
+    const userInfo = store.getters["user/getUserById"](userId);
+    const mockUser = { userInfo };
 
-    const mockOwnershipUserList = {
-      ownerships: [
-        {
-          ownershipId: "1",
-          gameId: "1",
-          userId: "1",
-          state: "granted",
-          registeredDate: "2020-08-06",
-          gameName: "Acme Game",
-        },
-        {
-          ownershipId: "2",
-          gameId: "2",
-          userId: "1",
-          state: "granted",
-          registeredDate: "2020-08-06",
-          gameName: "Acme Game2",
-        },
-      ],
-    };
+    const ownerships = store.getters["ownership/getOwnershipListByUserId"](
+      userId
+    );
+    const mergedOwnership = ownerships.map((ownership) => {
+      const user = store.getters["game/getGameById"](ownership.gameId);
+      ownership.game = game;
+      return ownership;
+    });
 
-    const mergedMock = Object.assign(mockUser, mockOwnershipUserList);
+    const mergedMock = Object.assign(mockUser, mergedOwnership);
 
     next((vm) => vm.setData(null, mergedMock));
-    // getPost(to.params.id, (err, post) => {
-    //   next((vm) => vm.setData(err, post));
-    // });
   },
   components: {
     OwnershipList,
     UserAccountForm,
     EditButtonGroup,
     StaticEditName,
+  },
+  computed: {
+    ...mapGetters(["game/gameList"]),
   },
   data() {
     return {
@@ -91,9 +74,6 @@ export default {
       isOwnershipLoading: false,
       isUserEditLoading: false,
     };
-  },
-  mounted() {
-    this["user/getAllUser"]();
   },
   methods: {
     ...mapActions([

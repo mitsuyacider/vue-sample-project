@@ -101,6 +101,11 @@ export const ownershipModule = {
         (ownership) => ownership.gameId === gameId
       );
     },
+    getOwnershipListByUserId: (state) => (userId) => {
+      return state.ownershipList.filter(
+        (ownership) => ownership.userId === userId
+      );
+    },
   },
 };
 

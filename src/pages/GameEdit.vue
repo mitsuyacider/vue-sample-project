@@ -35,7 +35,7 @@
         @onClickTrash="deleteOwnership"
         @onChangeState="changeOwnershipState"
       />
-      <div>
+      <div v-else>
         There is no ownership data. Let's grant ownership to users for this
         game!
       </div>

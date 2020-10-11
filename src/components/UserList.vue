@@ -15,7 +15,7 @@
         <Pagination />
       </div>
       <div v-else>
-        No data
+        There is no user data available. Let's create a new user!
       </div>
     </b-overlay>
   </div>
