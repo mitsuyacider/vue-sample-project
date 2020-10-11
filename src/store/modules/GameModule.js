@@ -36,7 +36,6 @@ export const gameModule = {
       gameList.splice(deleteGameIndex, 1);
     },
     postGameEdit(state, editedGame) {
-      console.log("edited game", editedGame);
       const gameList = state.gameList;
       gameList
         .filter((game) => editedGame.gameId === game.gameId)
@@ -46,6 +45,9 @@ export const gameModule = {
         });
 
       console.log("*** gamelist", gameList);
+    },
+    createGame(state, newGame) {
+      state.gameList.push(newGame);
     },
   },
   actions: {
@@ -62,6 +64,12 @@ export const gameModule = {
       await postGameEdit();
       commit("postGameEdit", game);
     },
+    async createGame({ commit }, game) {
+      await createGame();
+      game.gameId = Math.floor(Math.random() * 1000000);
+
+      commit("createGame", game);
+    },
   },
   getters: {
     gameList(state) {
@@ -71,6 +79,14 @@ export const gameModule = {
 };
 
 const deleteGame = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 2000);
+  });
+};
+
+const createGame = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
