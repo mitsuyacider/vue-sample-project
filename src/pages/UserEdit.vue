@@ -9,7 +9,7 @@
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
       <div class="mb-1"><span>Ownership Games</span></div>
-      <OwnershipList :ownerships="ownerships" />
+      <OwnershipList :ownerships="ownerships" @onClickTrash="deleteOwnership" />
     </div>
 
     <!-- Edit button (Delete / Save) -->
@@ -88,7 +88,12 @@ export default {
     this["user/getAllUser"]();
   },
   methods: {
-    ...mapActions(["user/getAllUser", "user/postUserEdit", "user/deleteUser"]),
+    ...mapActions([
+      "user/getAllUser",
+      "user/postUserEdit",
+      "user/deleteUser",
+      "ownership/deleteOwnership",
+    ]),
     getName() {
       // NOTE: Remove all white spaces in the input field
       const firstName = this.user.firstName.replace(/\s+/g, "");
@@ -122,6 +127,19 @@ export default {
           const adminId = this.$route.params.adminId;
           const nextPath = `/${adminId}/users`;
           this.$router.push(nextPath);
+        });
+      }
+    },
+    deleteOwnership(data) {
+      const isConfirmed = confirm(
+        `Are you sure you want to delete ownership of ${data.gameName}?`
+      );
+      if (isConfirmed) {
+        this["ownership/deleteOwnership"](data.ownershipId).then((e) => {
+          const deleteOwnershipIndex = this.ownerships.findIndex(
+            (ownership) => ownership.ownershipId === data.ownershipId
+          );
+          this.ownerships.splice(deleteOwnershipIndex, 1);
         });
       }
     },

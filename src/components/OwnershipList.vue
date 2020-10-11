@@ -6,6 +6,7 @@
         v-for="ownership in this.ownerships"
         :key="ownership.ownershipId"
         :rowData="ownership"
+        @onClickTrash="handleOnClickTrash"
       />
     </BaseListTable>
     <Pagination />
@@ -30,6 +31,11 @@ export default {
     OwnershipListRow,
     BaseListTable,
     Pagination,
+  },
+  methods: {
+    handleOnClickTrash(data) {
+      this.$emit("onClickTrash", data);
+    },
   },
 };
 </script>

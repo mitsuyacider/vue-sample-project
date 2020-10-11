@@ -22,13 +22,10 @@
 
       <!-- Edit button -->
       <td>
-        <router-link to="/123/users/abc/edit"
-          ><b-icon icon="trash"></b-icon
-        ></router-link>
-        <!-- <router-link
-          :to="`/${this.$route.params.adminId}/games/${rowData.gameId}/edit`"
-          ><b-icon icon="pencil-square"></b-icon
-        ></router-link> -->
+        <b-icon
+          icon="trash"
+          v-on:click="(e) => this.$emit('onClickTrash', this.rowData)"
+        ></b-icon>
       </td>
     </tr>
   </BaseListRow>

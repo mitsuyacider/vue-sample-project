@@ -1,12 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { userModule } from "@/store/modules/UserModule";
+import { ownershipModule } from "@/store/modules/OwnershipModule";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     user: userModule,
+    ownership: ownershipModule,
   },
   state: {
     // NOTE: Initial data for this assignment
@@ -32,11 +34,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getDummy({ commit }) {
-      setTimeout(() => {
-        commit("getDummy", "hello world");
-      }, 1000);
-    },
     setAdminData({ commit }, data) {
       commit("setAdminData", data);
     },

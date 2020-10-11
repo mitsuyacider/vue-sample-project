@@ -43,9 +43,6 @@ export const ownershipModule = {
     userData: 0,
   }),
   mutations: {
-    getAllOwnership(state, data) {
-      state.ownershipList = data;
-    },
     deleteOwnership(state, ownershipId) {
       const userList = state.ownershipList;
       const deleteUserIndex = ownershipList.findIndex(
@@ -65,14 +62,9 @@ export const ownershipModule = {
     },
   },
   actions: {
-    getAllOwnership({ commit }) {
-      setTimeout(() => {
-        commit("getAllOwnership", mockOwnershipList);
-      }, 1000);
-    },
     async deleteOwnership({ commit }, ownershipId) {
       await deleteOwnership();
-      commit("deleteOwnership", ownershipId);
+      // commit("deleteOwnership", ownershipId);
     },
     postOwnershipEdit({ commit }, ownership) {
       setTimeout(() => {
