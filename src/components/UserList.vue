@@ -1,21 +1,23 @@
 <template>
   <div>
-    <div v-if="this['user/userList'].length > 0">
-      <BaseListTable>
-        <UserListHeader />
+    <b-overlay :show="isLoading" rounded="sm">
+      <div v-if="this['user/userList'].length > 0">
+        <BaseListTable>
+          <UserListHeader />
 
-        <UserListRow
-          v-for="user in this['user/userList']"
-          :key="user.userId"
-          :user="user"
-          @onClickTrash="deleteUser"
-        />
-      </BaseListTable>
-      <Pagination />
-    </div>
-    <div v-else>
-      No data
-    </div>
+          <UserListRow
+            v-for="user in this['user/userList']"
+            :key="user.userId"
+            :user="user"
+            @onClickTrash="deleteUser"
+          />
+        </BaseListTable>
+        <Pagination />
+      </div>
+      <div v-else>
+        No data
+      </div>
+    </b-overlay>
   </div>
 </template>
 
@@ -36,13 +38,23 @@ export default {
   computed: {
     ...mapGetters(["user/userList"]),
   },
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   mounted() {
     this["user/getAllUser"]();
   },
   methods: {
     ...mapActions(["user/getAllUser", "user/deleteUser"]),
     deleteUser(user) {
-      this["user/deleteUser"](user.userId);
+      this.isLoading = true;
+      this["user/deleteUser"](user.userId)
+        .then((e) => {
+          this.isLoading = false;
+        })
+        .catch((err) => (this.isLoading = false));
     },
   },
 };
