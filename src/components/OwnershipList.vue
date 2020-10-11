@@ -2,7 +2,11 @@
   <div>
     <BaseListTable>
       <OwnershipListHeader />
-      <OwnershipListRow />
+      <OwnershipListRow
+        v-for="ownership in this.ownerships"
+        :key="ownership.ownershipId"
+        :rowData="ownership"
+      />
     </BaseListTable>
     <Pagination />
   </div>
@@ -15,6 +19,12 @@ import BaseListTable from "@/components/BaseListTable";
 import Pagination from "@/components/Pagination";
 
 export default {
+  props: {
+    ownerships: {
+      type: Array,
+      value: [],
+    },
+  },
   components: {
     OwnershipListHeader,
     OwnershipListRow,

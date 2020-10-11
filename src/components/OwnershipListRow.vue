@@ -1,16 +1,15 @@
 <template>
   <BaseListRow>
     <tr>
-      <!-- Game Name -->
-      <td>Mitsuya Watanabe</td>
+      <!-- Game Name / User Name -->
+      <td>{{ rowData.gameName }}</td>
 
       <!-- State (Granted / Invoked) -->
       <td>
         <b-dropdown
           id="dropdown-dropright"
           dropright
-          text="Granted"
-          variant="primary"
+          :text="rowData.state"
           class="valid-state"
         >
           <b-dropdown-item href="#">Grant</b-dropdown-item>
@@ -19,16 +18,17 @@
       </td>
 
       <!-- Registered -->
-      <td>10/10/2020</td>
+      <td>{{ rowData.registeredDate }}</td>
 
       <!-- Edit button -->
       <td>
         <router-link to="/123/users/abc/edit"
           ><b-icon icon="trash"></b-icon
         ></router-link>
-        <router-link to="/123/users/abc/edit"
+        <!-- <router-link
+          :to="`/${this.$route.params.adminId}/games/${rowData.gameId}/edit`"
           ><b-icon icon="pencil-square"></b-icon
-        ></router-link>
+        ></router-link> -->
       </td>
     </tr>
   </BaseListRow>
@@ -44,6 +44,10 @@ export default {
     title: {
       type: String,
       value: "",
+    },
+    rowData: {
+      type: Object,
+      value: {},
     },
   },
 };

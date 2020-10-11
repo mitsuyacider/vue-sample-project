@@ -9,7 +9,7 @@
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
       <div class="mb-1"><span>Ownership Games</span></div>
-      <OwnershipList />
+      <OwnershipList :ownerships="ownerships" />
     </div>
 
     <!-- Edit button (Delete / Save) -->
@@ -29,16 +29,41 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   beforeRouteEnter(to, from, next) {
-    const mock = {
-      userId: to.params.userId,
-      firstName: "Mitsuya",
-      lastName: "Watanabe",
-      password: "asdfafa",
-      email: "mitsuya.watanabe85@gmail.com",
-      dateOfBirth: "2020-08-06",
+    const mockUser = {
+      userInfo: {
+        userId: to.params.userId,
+        firstName: "Mitsuya",
+        lastName: "Watanabe",
+        password: "asdfafa",
+        email: "mitsuya.watanabe85@gmail.com",
+        dateOfBirth: "2020-08-06",
+      },
     };
 
-    next((vm) => vm.setData(null, mock));
+    const mockOwnershipUserList = {
+      ownerships: [
+        {
+          ownershipId: "1",
+          gameId: "1",
+          userId: "1",
+          state: "granted",
+          registeredDate: "2020-08-06",
+          gameName: "Acme Game",
+        },
+        {
+          ownershipId: "2",
+          gameId: "2",
+          userId: "1",
+          state: "granted",
+          registeredDate: "2020-08-06",
+          gameName: "Acme Game2",
+        },
+      ],
+    };
+
+    const mergedMock = Object.assign(mockUser, mockOwnershipUserList);
+
+    next((vm) => vm.setData(null, mergedMock));
     // getPost(to.params.id, (err, post) => {
     //   next((vm) => vm.setData(err, post));
     // });
@@ -55,6 +80,7 @@ export default {
         firstName: "",
         lastName: "",
       },
+      ownerships: [],
       loading: false,
     };
   },
@@ -81,7 +107,8 @@ export default {
         .join(" ");
     },
     setData(err, data) {
-      this.user = data;
+      this.user = data.userInfo;
+      this.ownerships = data.ownerships;
     },
     postUserEdit() {
       this["user/postUserEdit"](this.user);

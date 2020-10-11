@@ -55,11 +55,8 @@ export const userModule = {
       userList
         .filter((user) => editedUser.userId === user.userId)
         .map((user) => {
-          console.log("**hhhhh");
           return Object.assign(user, editedUser);
         });
-
-      console.log(userList);
     },
   },
   actions: {
@@ -70,7 +67,6 @@ export const userModule = {
     },
     async deleteUser({ commit }, userId) {
       await deleteUser();
-      console.log("hallo");
       commit("deleteUser", userId);
     },
     postUserEdit({ commit }, user) {
@@ -82,9 +78,6 @@ export const userModule = {
   getters: {
     userList(state) {
       return state.userList;
-    },
-    user() {
-      return 2;
     },
   },
 };
