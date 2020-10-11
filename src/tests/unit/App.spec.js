@@ -45,10 +45,12 @@ describe("Routing", () => {
       userId: "123";
     },
     "user/userList": () => "",
+    "game/gameList": () => "",
   };
 
   actions = {
     "user/getAllUser": () => "",
+    "game/getAllGame": () => "",
   };
 
   const store = new Vuex.Store({
