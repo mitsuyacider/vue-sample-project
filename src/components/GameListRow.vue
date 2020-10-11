@@ -15,7 +15,7 @@
           v-on:click="(e) => this.$emit('onClickTrash', this.rowData)"
         ></b-icon>
         <router-link
-          :to="`/${this.$route.params.adminId}/users/${rowData.gameId}/edit`"
+          :to="`/${this.$route.params.adminId}/games/${rowData.gameId}/edit`"
           ><b-icon icon="pencil-square"></b-icon
         ></router-link>
       </td>

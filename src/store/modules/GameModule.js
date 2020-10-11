@@ -36,12 +36,16 @@ export const gameModule = {
       gameList.splice(deleteGameIndex, 1);
     },
     postGameEdit(state, editedGame) {
+      console.log("edited game", editedGame);
       const gameList = state.gameList;
       gameList
         .filter((game) => editedGame.gameId === game.gameId)
         .map((game) => {
+          // NOTE: Assign updated data to game list
           return Object.assign(game, editedGame);
         });
+
+      console.log("*** gamelist", gameList);
     },
   },
   actions: {
