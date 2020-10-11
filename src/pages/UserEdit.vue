@@ -1,10 +1,18 @@
 <template>
   <div>
-    <!-- User Name -->
-    <StaticEditName :name="getName()" />
+    <b-overlay :show="isUserEditLoading" rounded="sm">
+      <!-- User Name -->
+      <StaticEditName :name="getName()" />
 
-    <!-- Account form -->
-    <UserAccountForm :user="user" />
+      <!-- Account form -->
+      <UserAccountForm :user="user" />
+
+      <!-- Edit button (Delete / Save) -->
+      <EditButtonGroup
+        @onClickSuccess="postUserEdit"
+        @onClickDelete="deleteUser"
+      />
+    </b-overlay>
 
     <!-- Ownership game list related to the editing user account -->
     <div class="mt-5">
@@ -16,12 +24,6 @@
         @onChangeState="changeOwnershipState"
       />
     </div>
-
-    <!-- Edit button (Delete / Save) -->
-    <EditButtonGroup
-      @onClickSuccess="postUserEdit"
-      @onClickDelete="deleteUser"
-    />
   </div>
 </template>
 
@@ -87,6 +89,7 @@ export default {
       },
       ownerships: [],
       isOwnershipLoading: false,
+      isUserEditLoading: false,
     };
   },
   mounted() {
@@ -122,7 +125,12 @@ export default {
       this.ownerships = data.ownerships;
     },
     postUserEdit() {
-      this["user/postUserEdit"](this.user);
+      this.isUserEditLoading = true;
+      this["user/postUserEdit"](this.user)
+        .then((e) => {
+          this.isUserEditLoading = false;
+        })
+        .catch((err) => (this.isUserEditLoading = false));
     },
     deleteUser() {
       const isConfirmed = confirm(

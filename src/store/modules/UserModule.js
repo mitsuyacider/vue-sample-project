@@ -69,10 +69,9 @@ export const userModule = {
       await deleteUser();
       commit("deleteUser", userId);
     },
-    postUserEdit({ commit }, user) {
-      setTimeout(() => {
-        commit("postUserEdit", user);
-      }, 1000);
+    async postUserEdit({ commit }, user) {
+      await postUserEdit();
+      commit("postUserEdit", user);
     },
   },
   getters: {
@@ -83,6 +82,14 @@ export const userModule = {
 };
 
 const deleteUser = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("resolved");
+    }, 2000);
+  });
+};
+
+const postUserEdit = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
