@@ -4,7 +4,7 @@
       <!-- Game Name / User Name -->
       <td>{{ listType === "game" ? rowData.gameName : rowData.userName }}</td>
 
-      <!-- State (Granted / Invoked) -->
+      <!-- State (Granted / Revoked) -->
       <td>
         <b-dropdown
           id="dropdown-dropright"
@@ -16,7 +16,7 @@
             >Grant</b-dropdown-item
           >
           <b-dropdown-item href="#" v-on:click.prevent="onChangeState"
-            >Invoke</b-dropdown-item
+            >Revoke</b-dropdown-item
           >
         </b-dropdown>
       </td>
