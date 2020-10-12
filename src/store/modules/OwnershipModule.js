@@ -114,12 +114,12 @@ export const ownershipModule = {
     },
     getOwnershipListByGameId: (state) => (gameId) => {
       return state.ownershipList.filter(
-        (ownership) => ownership.gameId === gameId
+        (ownership) => ownership.gameId == gameId
       );
     },
     getOwnershipListByUserId: (state) => (userId) => {
       return state.ownershipList.filter(
-        (ownership) => ownership.userId === userId
+        (ownership) => ownership.userId == userId
       );
     },
   },

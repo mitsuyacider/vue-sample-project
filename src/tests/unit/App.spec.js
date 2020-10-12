@@ -17,25 +17,27 @@ localVue.use(BootstrapVue);
 localVue.use(BootstrapVueIcons);
 localVue.use(Vuex);
 
+const getters = {
+  hasAdminData: () => 2,
+  adminData: () => "input",
+  "user/userList": () => "",
+  "game/gameList": () => "",
+  "user/getAllUser": () => "",
+  hasLoginUserData: () => "",
+  loginUserData: () => "",
+};
+const actions = {
+  "user/getAllUser": () => "",
+  "game/getAllGame": () => "",
+  "ownership/getAllOwnership": () => "",
+};
+
+const store = new Vuex.Store({
+  actions,
+  getters,
+});
+
 describe("App.vue", () => {
-  const getters = {
-    hasAdminData: () => 2,
-    adminData: () => "input",
-    "user/userList": () => "",
-    "game/gameList": () => "",
-    "user/getAllUser": () => "",
-  };
-  const actions = {
-    "user/getAllUser": () => "",
-    "game/getAllGame": () => "",
-    "ownership/getAllOwnership": () => "",
-  };
-
-  const store = new Vuex.Store({
-    actions,
-    getters,
-  });
-
   it("renders when passed", () => {
     const wrapper = shallowMount(App, { store, localVue });
     expect(wrapper).not.toBeUndefined();
@@ -46,28 +48,6 @@ describe("Routing", () => {
   let routes;
   let router;
   let wrapper;
-  let actions;
-
-  const getters = {
-    hasAdminData: () => true,
-    adminData: () => {
-      userId: "123";
-    },
-    "user/userList": () => "",
-    "game/gameList": () => "",
-    "user/getAllUser": () => "",
-  };
-
-  actions = {
-    "user/getAllUser": () => "",
-    "game/getAllGame": () => "",
-    "ownership/getAllOwnership": () => "",
-  };
-
-  const store = new Vuex.Store({
-    getters,
-    actions,
-  });
 
   beforeEach(() => {
     routes = [

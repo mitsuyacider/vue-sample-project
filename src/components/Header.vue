@@ -56,8 +56,10 @@ export default {
       "loginUserData",
     ]),
     getName() {
-      if (this.hasAdminData) return this.adminData.firstName;
-      else if (this.hasLoginUserData) return this.loginUserData.firstName;
+      if (this.adminData && this.adminData.firstName)
+        return this.adminData.firstName;
+      else if (this.loginUserData && this.loginUserData.firstName)
+        return this.loginUserData.firstName;
       else return "";
     },
   },

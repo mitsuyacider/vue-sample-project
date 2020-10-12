@@ -66,11 +66,14 @@ export default {
         this.loginUserData.userId
       ) {
         const path = `/user/${this.loginUserData.userId}`;
-        console.log("**** go to login", path);
 
         if (this.$route && this.$route.path !== path) this.$router.push(path);
+
+        // NOTE: Get all data
+        this["user/getAllUser"]();
+        this["game/getAllGame"]();
+        this["ownership/getAllOwnership"]();
       } else {
-        console.log("**** go to login");
         const path = "/";
         if (this.$route && this.$route.path !== path) this.$router.replace("/");
       }
