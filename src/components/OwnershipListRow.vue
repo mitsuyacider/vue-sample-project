@@ -28,7 +28,7 @@
       </td>
 
       <!-- Registered -->
-      <td>{{ rowData.registeredDate }}</td>
+      <td>{{ formatDate(rowData.registeredDate) }}</td>
 
       <!-- Edit button -->
       <td>
@@ -43,6 +43,8 @@
 
 <script>
 import BaseListRow from "@/components/BaseListRow";
+import { formatDate } from "@/js/utils/Text";
+
 export default {
   components: {
     BaseListRow,
@@ -62,6 +64,7 @@ export default {
     },
   },
   methods: {
+    formatDate,
     onChangeState(e) {
       const index = this.index;
       const changeData = {

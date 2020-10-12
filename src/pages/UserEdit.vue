@@ -42,6 +42,7 @@ import StaticEditName from "@/components/StaticEditName";
 import store from "@/store";
 import { mapActions, mapGetters } from "vuex";
 
+import { titleCase } from "@/js/utils/Text";
 import { checkAccountForm } from "@/js/utils/Validation";
 
 export default {
@@ -88,6 +89,7 @@ export default {
     };
   },
   methods: {
+    titleCase,
     ...mapActions([
       "user/getAllUser",
       "user/postUserEdit",
@@ -100,18 +102,10 @@ export default {
       // NOTE: Remove all white spaces in the input field
       const firstName = this.user.firstName.replace(/\s+/g, "");
       const lastName = this.user.lastName.replace(/\s+/g, "");
-
       const fullName = firstName + " " + lastName;
 
       // NOTE: Return fullname with title case
-      return this.titleCase(fullName);
-    },
-    titleCase(str) {
-      return str
-        .toLowerCase()
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+      return titleCase(fullName);
     },
     setData(err, data) {
       this.user = data.userInfo;

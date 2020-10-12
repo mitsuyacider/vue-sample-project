@@ -61,6 +61,17 @@ export const ownershipModule = {
         state.ownershipList.push(...data);
       }
     },
+    changeOwnership(state, data) {
+      const newState = data.modified === "Grant" ? "granted" : "revoked";
+      const list = state.ownershipList;
+      const hasOwner = (owner) => owner.ownershipId === data.ownershipId;
+
+      // NOTE: Update ownership
+      list.filter(hasOwner).map((owner) => {
+        owner.state = newState;
+        return owner;
+      });
+    },
   },
   actions: {
     async deleteOwnership({ commit }, ownershipId) {
@@ -69,6 +80,7 @@ export const ownershipModule = {
     },
     async postOwnershipEdit({ commit }, ownership) {
       await postOwnershipEdit();
+      commit("changeOwnership", ownership);
     },
     async getAllOwnership({ commit, rootState }) {
       const adminId = rootState.adminData.userId;
