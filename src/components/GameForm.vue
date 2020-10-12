@@ -43,9 +43,10 @@
           }"
           for="thumbnail"
         >
-          <span v-if="!game.thumbnail" class="thumbnail-text"
-            >Choose Thumbnail</span
-          >
+          <div class="thumbnail-text">
+            <span v-if="!game.thumbnail" class="">Choose Thumbnail</span>
+            <div>180 x 120</div>
+          </div>
 
           <!-- Only allow jpg and png file -->
           <input
@@ -69,6 +70,7 @@
             alt="thumbnail"
             data-thumbnail
             ref="gameThumbnail"
+            class="thumbnail-image"
           />
         </label>
       </div>
@@ -129,5 +131,12 @@ export default {
   text-align: center;
   transform: translate(-50%, -50%);
   top: 50%;
+}
+
+.thumbnail-image {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
