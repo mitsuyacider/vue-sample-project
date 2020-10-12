@@ -116,7 +116,7 @@ describe("Routing", () => {
     });
   });
 
-  it("renders dashboard page via routing", async () => {
+  it("renders dashboard page via router", async () => {
     expect(wrapper).not.toBeUndefined();
 
     router.push("/123/dashboard");
@@ -125,35 +125,35 @@ describe("Routing", () => {
     expect(wrapper.findComponent(Dashboard).exists()).toBe(true);
   });
 
-  it("renders users page via routing", async () => {
+  it("renders users page via router", async () => {
     router.push("/123/users");
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(Users).exists()).toBe(true);
   });
 
-  it("renders games page via routing", async () => {
+  it("renders games page via router", async () => {
     router.push("/123/games");
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(Games).exists()).toBe(true);
   });
 
-  it("renders user edit page via routing", async () => {
+  it("renders user edit page via router", async () => {
     router.push("/123/users/abc/edit");
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(UserEdit).exists()).toBe(true);
   });
 
-  it("renders game edit page via routing", async () => {
+  it("renders game edit page via router", async () => {
     router.push("/123/games/abc/edit");
     await wrapper.vm.$nextTick();
 
     expect(wrapper.findComponent(GameEdit).exists()).toBe(true);
   });
 
-  it("renders settings page via routing", async () => {
+  it("renders settings page via router", async () => {
     router.push("/123/settings");
     await wrapper.vm.$nextTick();
 
