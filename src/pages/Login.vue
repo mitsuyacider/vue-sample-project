@@ -2,7 +2,9 @@
   <div class="d-flex justify-content-center form-container">
     <div class="col-md-4">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-bold">Welcome to Acme Games!</h1>
+        <h1 class="h3 mb-3 font-weight-bold">
+          Welcome to Admin Interface for Acme Games!
+        </h1>
       </div>
       <BaseForm>
         <div class="form-label-group mb-3">

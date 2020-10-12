@@ -55,8 +55,6 @@ const storeData = (table) => (val) => {
     const adminId = store.state.adminData.userId;
     const key = `${adminId}/${table}`;
     LocalStorage.setItem(key, val);
-
-    console.log("change database", key, val);
   }
 };
 

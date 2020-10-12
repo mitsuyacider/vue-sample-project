@@ -6,13 +6,18 @@
           <UserListHeader />
 
           <UserListRow
-            v-for="user in this['user/userList']"
+            v-for="user in userList"
             :key="user.userId"
             :user="user"
             @onClickTrash="deleteUser"
           />
         </BaseListTable>
-        <Pagination />
+
+        <Pagination
+          v-if="pagerData.rows > pagerData.perPage"
+          :pagerData="pagerData"
+          @onChangePage="handleOnChangePage"
+        />
       </div>
       <div v-else>
         There is no user data available. Let's create a new user!
@@ -37,10 +42,25 @@ export default {
   },
   computed: {
     ...mapGetters(["user/userList"]),
+    pagerData() {
+      return {
+        rows: this["user/userList"].length,
+        perPage: 10,
+      };
+    },
+    userList() {
+      const page = this.currentPage;
+      const total = this["user/userList"];
+      const perPage = this.pagerData.perPage;
+      const start = (page - 1) * perPage;
+      const end = page * perPage;
+      return total.slice(start, end);
+    },
   },
   data() {
     return {
       isLoading: false,
+      currentPage: 1,
     };
   },
   methods: {
@@ -48,8 +68,15 @@ export default {
     deleteUser(user) {
       this.isLoading = true;
       this["user/deleteUser"](user.userId)
+        .then((e) => {
+          if (this.userList.length === 0 && this.currentPage > 1)
+            this.currentPage--;
+        })
         .then((e) => (this.isLoading = false))
         .catch((err) => (this.isLoading = false));
+    },
+    handleOnChangePage(page) {
+      this.currentPage = page;
     },
   },
 };

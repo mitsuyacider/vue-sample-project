@@ -3,7 +3,7 @@
     <tr>
       <th>Name</th>
       <th>State</th>
-      <th>Registered</th>
+      <th>Registered Date</th>
       <th></th>
     </tr>
   </BaseListHeader>

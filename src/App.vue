@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
-      const path = `/${this.adminData.userId}/dashboard`;
+      const path = `/${this.adminData.userId}/users`;
       if (this.$route && this.$route.path !== path) this.$router.push(path);
 
       // NOTE: Get all data

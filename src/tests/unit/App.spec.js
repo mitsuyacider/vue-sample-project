@@ -139,19 +139,19 @@ describe("Routing", () => {
     expect(wrapper.findComponent(Games).exists()).toBe(true);
   });
 
-  // it("renders user edit page via routing", async () => {
-  //   router.push("/123/users/abc/edit");
-  //   await wrapper.vm.$nextTick();
+  it("renders user edit page via routing", async () => {
+    router.push("/123/users/abc/edit");
+    await wrapper.vm.$nextTick();
 
-  //   expect(wrapper.findComponent(UserEdit).exists()).toBe(true);
-  // });
+    expect(wrapper.findComponent(UserEdit).exists()).toBe(true);
+  });
 
-  // it("renders game edit page via routing", async () => {
-  //   router.push("/123/games/abc/edit");
-  //   await wrapper.vm.$nextTick();
+  it("renders game edit page via routing", async () => {
+    router.push("/123/games/abc/edit");
+    await wrapper.vm.$nextTick();
 
-  //   expect(wrapper.findComponent(GameEdit).exists()).toBe(true);
-  // });
+    expect(wrapper.findComponent(GameEdit).exists()).toBe(true);
+  });
 
   it("renders settings page via routing", async () => {
     router.push("/123/settings");

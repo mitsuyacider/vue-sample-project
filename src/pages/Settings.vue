@@ -1,8 +1,8 @@
 <template>
   <div>
-    <StaticEditName :name="adminData.firstName + ' ' + adminData.lastName" />
-    <div><span>Email: </span>{{ adminData.email }}</div>
-    <div><span>Birth: </span>{{ adminData.dateOfBirth }}</div>
+    <StaticEditName :name="userName" />
+    <div><span>Email: </span>{{ userAddress }}</div>
+    <div><span>Birth: </span>{{ dateOfBirth }}</div>
   </div>
 </template>
 
@@ -18,6 +18,31 @@ export default {
   },
   computed: {
     ...mapGetters(["adminData"]),
+    userName() {
+      if (
+        this.adminData &&
+        this.adminData.firstName &&
+        this.adminData.lastName
+      ) {
+        return this.adminData.firstName + " " + this.adminData.lastName;
+      } else {
+        return "";
+      }
+    },
+    userAddress() {
+      if (this.adminData && this.adminData.email) {
+        return this.adminData.email;
+      } else {
+        return "";
+      }
+    },
+    dateOfBirth() {
+      if (this.adminData && this.adminData.dateOfBirth) {
+        return this.adminData.dateOfBirth;
+      } else {
+        return "";
+      }
+    },
   },
 };
 </script>

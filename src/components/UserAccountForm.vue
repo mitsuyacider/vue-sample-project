@@ -99,6 +99,9 @@ export default {
     user: {
       type: Object,
       value: "",
+      default: function() {
+        return {};
+      },
     },
     errors: {
       type: Array,

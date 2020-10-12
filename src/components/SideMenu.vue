@@ -7,10 +7,7 @@
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
         <!-- Dashboard -->
-        <SideMenuItem
-          :path="`/${this.adminData.userId}/dashboard`"
-          :linkName="'Dashboard'"
-        >
+        <SideMenuItem :path="getPath('dashboard')" :linkName="'Dashboard'">
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -20,10 +17,7 @@
         </SideMenuItem>
 
         <!-- Users -->
-        <SideMenuItem
-          :path="`/${this.adminData.userId}/users`"
-          :linkName="'Users'"
-        >
+        <SideMenuItem :path="getPath('users')" :linkName="'Users'">
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -33,10 +27,7 @@
         </SideMenuItem>
 
         <!-- Games -->
-        <SideMenuItem
-          :path="`/${this.adminData.userId}/games`"
-          :linkName="'Games'"
-        >
+        <SideMenuItem :path="getPath('games')" :linkName="'Games'">
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -46,10 +37,7 @@
         </SideMenuItem>
 
         <!-- Settings -->
-        <SideMenuItem
-          :path="`/${this.adminData.userId}/settings`"
-          :linkName="'Settings'"
-        >
+        <SideMenuItem :path="getPath('settings')" :linkName="'Settings'">
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -76,6 +64,22 @@ export default {
   },
   computed: {
     ...mapGetters(["hasAdminData", "adminData"]),
+    // getPath(end) {
+    //   if (this.adminData && this.adminData.userId) {
+    //     return `/${this.adminData.userId}/${end}`;
+    //   } else {
+    //     return `/`;
+    //   }
+    // },
+  },
+  methods: {
+    getPath(end) {
+      if (this.adminData && this.adminData.userId) {
+        return `/${this.adminData.userId}/${end}`;
+      } else {
+        return `/`;
+      }
+    },
   },
   components: {
     SideMenuItem,

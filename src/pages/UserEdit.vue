@@ -160,7 +160,7 @@ export default {
       this["ownership/postOwnershipEdit"](data)
         .then((e) => {
           // NOTE: Apply update state to the row data.
-          const state = data.modified === "Grant" ? "granted" : "revoked";
+          const state = data.modified === "Grant" ? "owned" : "revoked";
           data.state = state;
 
           this.isOwnershipLoading = false;

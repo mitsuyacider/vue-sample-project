@@ -7,9 +7,10 @@
     <BaseModal
       :modalId="triggerId"
       :title="'Create User'"
+      :isLoading="isCreateLoading"
       ref="userCreateModal"
       @onClickCreate="createUser"
-      :isLoading="isCreateLoading"
+      @beforeShow="beforeModalShow"
     >
       <UserAccountForm :user="user" :errors="errors" />
     </BaseModal>
@@ -35,14 +36,7 @@ export default {
   data() {
     return {
       triggerId: "user-account",
-      user: {
-        firstName: "",
-        lastName: "",
-        password: "",
-        confirmPassword: "",
-        email: "",
-        dateOfBirth: "",
-      },
+      user: {},
       errors: [],
       isCreateLoading: false,
     };
@@ -62,6 +56,17 @@ export default {
       } else {
         this.errors = errors;
       }
+    },
+    beforeModalShow() {
+      // NOTE: Reset user data
+      this.user = {
+        firstName: "",
+        lastName: "",
+        password: "",
+        confirmPassword: "",
+        email: "",
+        dateOfBirth: "",
+      };
     },
   },
 };

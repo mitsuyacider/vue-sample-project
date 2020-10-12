@@ -3,7 +3,7 @@
     <tr>
       <th># id</th>
       <th>Name</th>
-      <th>Restriction</th>
+      <th>Age Restriction</th>
       <th></th>
     </tr>
   </BaseListHeader>

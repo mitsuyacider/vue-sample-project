@@ -31,7 +31,7 @@
         <b-dropdown
           id="dropdown-account"
           dropbottom
-          :text="adminData.firstName"
+          :text="(adminData && adminData.firstName) || ''"
           variant="none"
           class="account-menu"
         >

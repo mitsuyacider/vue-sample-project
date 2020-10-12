@@ -53,6 +53,9 @@ export default {
     rowData: {
       type: Object,
       value: {},
+      default: function() {
+        return {};
+      },
     },
     index: {
       type: Number,

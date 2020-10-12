@@ -43,8 +43,8 @@
           }"
           for="thumbnail"
         >
-          <div class="thumbnail-text">
-            <span v-if="!game.thumbnail" class="">Choose Thumbnail</span>
+          <div class="thumbnail-text" v-if="!game.thumbnail">
+            <span>Choose Thumbnail</span>
             <div>180 x 120</div>
           </div>
 
@@ -90,6 +90,9 @@ export default {
     game: {
       type: Object,
       value: "",
+      default: function() {
+        return {};
+      },
     },
     errors: {
       type: Array,

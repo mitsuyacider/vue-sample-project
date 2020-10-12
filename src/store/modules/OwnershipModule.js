@@ -62,7 +62,7 @@ export const ownershipModule = {
       }
     },
     changeOwnership(state, data) {
-      const newState = data.modified === "Grant" ? "granted" : "revoked";
+      const newState = data.modified === "Grant" ? "owned" : "revoked";
       const list = state.ownershipList;
       const hasOwner = (owner) => owner.ownershipId === data.ownershipId;
 
@@ -98,7 +98,7 @@ export const ownershipModule = {
           ownershipId,
           userId,
           gameId: data.gameId,
-          state: "granted",
+          state: "owned",
           registeredDate: new Date(),
         };
 
