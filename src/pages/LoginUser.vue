@@ -19,8 +19,7 @@
 
       <!-- There is no ownership data -->
       <div v-else>
-        There is no ownership data for this user. Go to games menu from side
-        menu and grant ownership of games to this user.
+        There is no game available.
       </div>
     </div>
   </div>

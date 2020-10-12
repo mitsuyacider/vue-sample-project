@@ -56,9 +56,7 @@ export default {
       if (this.$route && this.$route.path !== path) this.$router.push(path);
 
       // NOTE: Get all data
-      this["user/getAllUser"]();
-      this["game/getAllGame"]();
-      this["ownership/getAllOwnership"]();
+      this.fetchAllData();
     } else {
       if (
         this.hasLoginUserData &&
@@ -70,9 +68,7 @@ export default {
         if (this.$route && this.$route.path !== path) this.$router.push(path);
 
         // NOTE: Get all data
-        this["user/getAllUser"]();
-        this["game/getAllGame"]();
-        this["ownership/getAllOwnership"]();
+        this.fetchAllData();
       } else {
         const path = "/";
         if (this.$route && this.$route.path !== path) this.$router.replace("/");
@@ -87,6 +83,11 @@ export default {
     ]),
     handleOnClickSideBarMenu() {
       this.isShowBarSideMenu = !this.isShowBarSideMenu;
+    },
+    fetchAllData() {
+      this["user/getAllUser"]();
+      this["game/getAllGame"]();
+      this["ownership/getAllOwnership"]();
     },
   },
   watch: {
