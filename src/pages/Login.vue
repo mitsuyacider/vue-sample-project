@@ -3,7 +3,7 @@
     <div class="col-md-4">
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-bold">
-          Welcome to Admin Interface for Acme Games!
+          Welcome to Acme Games!
         </h1>
       </div>
       <BaseForm>
@@ -55,6 +55,8 @@
 import BaseForm from "@/components/BaseForm";
 import { mapActions, mapGetters } from "vuex";
 
+import LocalStorage from "@/js/db/LocalStorage";
+
 export default {
   components: {
     BaseForm,
@@ -67,11 +69,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["defaultAdminData", "loginUserInfo"]),
+    ...mapGetters(["defaultAdminData", "user/userList"]),
   },
   methods: {
     ...mapActions([
       "setAdminData",
+      "setLoginUserData",
       "ownership/getAllOwnership",
       "user/getAllUser",
       "game/getAllGame",
@@ -83,14 +86,13 @@ export default {
       const [isValid, errors] = this.checkLoginForm();
 
       if (isValid) {
-        // NOTE: check if input user exists in database.
-        const testAdmin = this.loginUserInfo(
-          /** email = */ this.email,
-          /** password = */ this.password
-        );
+        const isAdmin =
+          this.email === this.defaultAdminData.email &&
+          this.password == this.defaultAdminData.password;
 
-        if (testAdmin) {
-          const adminData = testAdmin;
+        // NOTE: Admin or not
+        if (isAdmin) {
+          const adminData = this.defaultAdminData;
           const path = `/${adminData.userId}/dashboard`;
           this.$router.push(path);
           this.setAdminData(adminData);
@@ -98,7 +100,27 @@ export default {
           this["game/getAllGame"]();
           this["ownership/getAllOwnership"]();
         } else {
-          this.isInvalidUser = true;
+          // NOTE: Check registered user
+          const key = `${this.defaultAdminData.userId}/users`;
+          const users = LocalStorage.getItem(key) || [];
+
+          if (users.length > 0) {
+            // NOTE: find user
+            const hasUser = users.filter(
+              (user) =>
+                user.email == this.email && user.password == this.password
+            );
+            if (hasUser.length > 0) {
+              // NOTE: Go to interface
+              const path = `/user/${hasUser[0].userId}/`;
+              this["setLoginUserData"](hasUser[0]);
+              this.$router.push(path);
+            } else {
+              this.isInvalidUser = true;
+            }
+          } else {
+            this.isInvalidUser = true;
+          }
         }
       } else {
         this.isInvalidUser = true;

@@ -8,6 +8,9 @@
           <Main />
         </div>
       </div>
+      <div v-else-if="this.hasLoginUserData">
+        <LoginUser class="main-container" />
+      </div>
       <div v-else class="main-container"><Login /></div>
     </div>
     <Footer />
@@ -16,6 +19,8 @@
 
 <script>
 import Login from "@/pages/Login";
+import LoginUser from "@/pages/LoginUser";
+
 import Main from "@/components/Main";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,6 +34,7 @@ export default {
     Header,
     Footer,
     SideMenu,
+    LoginUser,
   },
   data() {
     return {
@@ -37,7 +43,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["hasAdminData", "adminData"]),
+    ...mapGetters([
+      "hasAdminData",
+      "adminData",
+      "hasLoginUserData",
+      "loginUserData",
+    ]),
   },
   mounted() {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
@@ -49,8 +60,20 @@ export default {
       this["game/getAllGame"]();
       this["ownership/getAllOwnership"]();
     } else {
-      const path = "/";
-      if (this.$route && this.$route.path !== path) this.$router.replace("/");
+      if (
+        this.hasLoginUserData &&
+        this.loginUserData &&
+        this.loginUserData.userId
+      ) {
+        const path = `/user/${this.loginUserData.userId}`;
+        console.log("**** go to login", path);
+
+        if (this.$route && this.$route.path !== path) this.$router.push(path);
+      } else {
+        console.log("**** go to login");
+        const path = "/";
+        if (this.$route && this.$route.path !== path) this.$router.replace("/");
+      }
     }
   },
   methods: {

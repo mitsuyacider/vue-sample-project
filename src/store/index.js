@@ -18,26 +18,6 @@ const defaultAdminData = {
   dateOfBirth: "1985/08/06",
 };
 
-const testAdminUsers = [
-  defaultAdminData,
-  {
-    userId: "456",
-    firstName: "Rene",
-    lastName: "Brown",
-    email: "test2@acmegames.com",
-    password: "acmegames",
-    dateOfBirth: "1990/07/06",
-  },
-  {
-    userId: "789",
-    firstName: "Freddie",
-    lastName: "Morales",
-    email: "test3@acmegames.com",
-    password: "acmegames",
-    dateOfBirth: "1976/4/6",
-  },
-];
-
 export default new Vuex.Store({
   modules: {
     user: userModule,
@@ -47,36 +27,40 @@ export default new Vuex.Store({
   state: {
     // NOTE: Initial data for this assignment
     adminData: defaultAdminData,
+    loginUserData: {},
     // adminData: {},
-    testAdminUsers,
   },
   mutations: {
     setAdminData(state, data) {
       state.adminData = data;
+    },
+    setLoginUserData(state, data) {
+      state.loginUserData = data;
     },
   },
   actions: {
     setAdminData({ commit }, data) {
       commit("setAdminData", data);
     },
+    setLoginUserData({ commit }, data) {
+      commit("setLoginUserData", data);
+    },
   },
   getters: {
     hasAdminData(state) {
       return Object.keys(state.adminData).length > 0;
+    },
+    hasLoginUserData(state) {
+      return Object.keys(state.loginUserData).length > 0;
+    },
+    loginUserData(state) {
+      return state.loginUserData;
     },
     adminData(state) {
       return state.adminData;
     },
     defaultAdminData(_) {
       return defaultAdminData;
-    },
-    loginUserInfo: (state) => (email, password) => {
-      const testUsers = state.testAdminUsers;
-      const userInfo = testUsers.filter(
-        (user) => user.email === email && user.password == password
-      );
-
-      return userInfo[0];
     },
   },
 });

@@ -52,25 +52,42 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="dateOfBirth">DateOfBirth</label>
-      <input
+      <!-- <label for="dateOfBirth">DateOfBirth</label> -->
+      <!-- <input
         type="date"
         class="form-control"
         :class="{
           'is-invalid': this.errors.filter((e) => e.dateOfBirth).length > 0,
         }"
         id="dateOfBirth"
+        placeholder="yyyy/mm/dd"
         v-model="user.dateOfBirth"
         required=""
-      />
-      <div class="invalid-feedback">
+      /> -->
+      <!-- <div class="invalid-feedback">
         {{ getErrorMessage("dateOfBirth", this.errors) }}
-      </div>
+      </div> -->
+      <label for="datepicker">Choose a date</label>
+      <b-form-datepicker
+        id="datepicker"
+        v-model="user.dateOfBirth"
+        class="mb-2"
+        required=""
+      >
+        <div class="invalid-feedback">
+          {{ getErrorMessage("dateOfBirth", this.errors) }}
+        </div>
+      </b-form-datepicker>
     </div>
     <div class="mb-3">
       <label for="password">Password</label>
+      <b-icon
+        :icon="isShowPassword ? 'eye' : 'eye-slash'"
+        style="cursor: pointer;"
+        @click="(e) => (isShowPassword = !isShowPassword)"
+      ></b-icon>
       <input
-        type="password"
+        :type="isShowPassword ? 'text' : 'password'"
         class="form-control"
         :class="{
           'is-invalid': this.errors.filter((e) => e.password).length > 0,
@@ -110,7 +127,11 @@ export default {
       },
     },
   },
-
+  data() {
+    return {
+      isShowPassword: false,
+    };
+  },
   methods: {
     getErrorMessage,
   },

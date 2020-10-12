@@ -10,6 +10,7 @@ import UserEdit from "@/pages/UserEdit";
 import GameEdit from "@/pages/GameEdit";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
+import LoginUser from "@/pages/LoginUser";
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ export default new Router({
       path: "/:adminId/games/:gameId/edit",
       name: "GameEdit",
       component: GameEdit,
+    },
+    {
+      path: "/user/:userId",
+      name: "LoginUser",
+      component: LoginUser,
     },
     {
       path: "/:adminId/settings",

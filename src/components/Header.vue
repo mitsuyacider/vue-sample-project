@@ -25,13 +25,13 @@
       <div
         class="navbar-nav px-3 d-md-block d-none"
         style="font-size: 1rem; color:white;"
-        v-if="this.hasAdminData"
+        v-if="this.hasAdminData || this.hasLoginUserData"
       >
         <b-icon icon="person-fill"></b-icon>
         <b-dropdown
           id="dropdown-account"
           dropbottom
-          :text="(adminData && adminData.firstName) || ''"
+          :text="getName"
           variant="none"
           class="account-menu"
         >
@@ -49,7 +49,17 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["hasAdminData", "adminData"]),
+    ...mapGetters([
+      "hasAdminData",
+      "adminData",
+      "hasLoginUserData",
+      "loginUserData",
+    ]),
+    getName() {
+      if (this.hasAdminData) return this.adminData.firstName;
+      else if (this.hasLoginUserData) return this.loginUserData.firstName;
+      else return "";
+    },
   },
   methods: {
     handlClickOnHeaderIcon(event) {
@@ -67,11 +77,12 @@ export default {
     handleClickOnAccount(event) {
       // NOTE: Reset admin data
       this.setAdminData({});
+      this.setLoginUserData({});
 
       // NOTE: Go to top page (login view)
       this.$router.replace("/");
     },
-    ...mapActions(["setAdminData"]),
+    ...mapActions(["setAdminData", "setLoginUserData"]),
   },
 };
 </script>
