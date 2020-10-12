@@ -34,7 +34,6 @@
           text="Mitsuya"
           variant="none"
           class="account-menu"
-          no-caret
         >
           <b-dropdown-item href="#" v-on:click.prevent="handleClickOnAccount"
             >Sign Out</b-dropdown-item

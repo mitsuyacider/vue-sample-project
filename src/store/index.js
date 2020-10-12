@@ -6,6 +6,15 @@ import { gameModule } from "@/store/modules/GameModule";
 
 Vue.use(Vuex);
 
+const defaultAdminData = {
+  userId: "12345",
+  firstName: "Maxine",
+  lastName: "Mitchell",
+  email: "test@acmegames.com",
+  password: "acmegames",
+  dateOfBirth: "08/06/1985",
+};
+
 export default new Vuex.Store({
   modules: {
     user: userModule,
@@ -14,18 +23,7 @@ export default new Vuex.Store({
   },
   state: {
     // NOTE: Initial data for this assignment
-    adminData: {
-      userId: "12345",
-      name: {
-        first: "Mitsuya",
-        last: "Watanabe",
-      },
-      firstName: "Mitsuya",
-      lastName: "Watanabe",
-      email: "mitsuya.watanabe85@gmail.com",
-      password: "sasfj!i1212",
-      dateOfBirth: "08/06/1985",
-    },
+    adminData: defaultAdminData,
   },
   mutations: {
     getDummy(state, data) {
@@ -46,6 +44,9 @@ export default new Vuex.Store({
     },
     adminData(state) {
       return state.adminData;
+    },
+    defaultAdminData(stae) {
+      return defaultAdminData;
     },
   },
 });
