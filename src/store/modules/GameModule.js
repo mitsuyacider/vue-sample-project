@@ -1,3 +1,5 @@
+import LocalStorage from "@/js/db/LocalStorage";
+
 const mockGameList = [
   // {
   //   gameId: "1",
@@ -25,7 +27,7 @@ export const gameModule = {
     gameList: [],
   }),
   mutations: {
-    getAllGame(state, data) {
+    settAllGame(state, data) {
       state.gameList = data;
     },
     deleteGame(state, gameId) {
@@ -49,10 +51,12 @@ export const gameModule = {
     },
   },
   actions: {
-    getAllGame({ commit }) {
-      setTimeout(() => {
-        commit("getAllGame", mockGameList);
-      }, 1000);
+    async getAllGame({ commit, rootState }) {
+      const adminId = rootState.adminData.userId;
+      const key = `${adminId}/games`;
+      const games = await getAllGame(key);
+
+      commit("settAllGame", games);
     },
     async deleteGame({ commit }, gameId) {
       await deleteGame();
@@ -77,6 +81,13 @@ export const gameModule = {
       return state.gameList.filter((game) => game.gameId == gameId)[0];
     },
   },
+};
+
+const getAllGame = (key) => {
+  return new Promise((resolve) => {
+    const games = LocalStorage.getItem(key) || [];
+    resolve(games);
+  });
 };
 
 const deleteGame = () => {

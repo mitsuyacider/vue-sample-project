@@ -5,7 +5,7 @@
       <StaticEditName :name="getName()" />
 
       <!-- Account form -->
-      <UserAccountForm :user="user" />
+      <UserAccountForm :user="user" :errors="errors" />
 
       <!-- Edit button (Delete / Save) -->
       <EditButtonGroup
@@ -41,6 +41,8 @@ import EditButtonGroup from "@/components/EditButtonGroup";
 import StaticEditName from "@/components/StaticEditName";
 import store from "@/store";
 import { mapActions, mapGetters } from "vuex";
+
+import { checkAccountForm } from "@/js/utils/Validation";
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -82,6 +84,7 @@ export default {
       ownerships: [],
       isOwnershipLoading: false,
       isUserEditLoading: false,
+      errors: [],
     };
   },
   methods: {
@@ -115,12 +118,18 @@ export default {
       this.ownerships = data.ownerships;
     },
     postUserEdit() {
-      this.isUserEditLoading = true;
-      this["user/postUserEdit"](this.user)
-        .then((e) => {
-          this.isUserEditLoading = false;
-        })
-        .catch((err) => (this.isUserEditLoading = false));
+      // NOTE: checkUserForm
+      const [isValid, errors] = checkAccountForm(this.user);
+      if (isValid) {
+        this.isUserEditLoading = true;
+        this["user/postUserEdit"](this.user)
+          .then((e) => {
+            this.isUserEditLoading = false;
+          })
+          .catch((err) => (this.isUserEditLoading = false));
+      } else {
+        this.errors = errors;
+      }
     },
     deleteUser() {
       const isConfirmed = confirm(

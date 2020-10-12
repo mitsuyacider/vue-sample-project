@@ -1,3 +1,5 @@
+import LocalStorage from "@/js/db/LocalStorage";
+
 const mockOwnershipList = [
   // {
   //   ownershipId: "1",
@@ -68,9 +70,11 @@ export const ownershipModule = {
     async postOwnershipEdit({ commit }, ownership) {
       await postOwnershipEdit();
     },
-    async getAllOwnership({ commit }) {
-      await getAllOwnership();
-      commit("setAllOwnership", mockOwnershipList);
+    async getAllOwnership({ commit, rootState }) {
+      const adminId = rootState.adminData.userId;
+      const key = `${adminId}/ownerships`;
+      const ownerships = await getAllOwnership(key);
+      commit("setAllOwnership", ownerships);
     },
     async addOwnerships({ commit }, data) {
       await addOwnerships();
@@ -117,11 +121,10 @@ const postOwnershipEdit = () => {
   });
 };
 
-const getAllOwnership = () => {
+const getAllOwnership = (key) => {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("resolved");
-    }, 0);
+    const ownerships = LocalStorage.getItem(key) || [];
+    resolve(ownerships);
   });
 };
 

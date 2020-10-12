@@ -12,7 +12,7 @@
       @onClickCreate="createGame"
       @beforeShow="beforeModalShow"
     >
-      <GameForm :game="game" />
+      <GameForm :game="game" :errors="errors" />
     </BaseModal>
   </div>
 </template>
@@ -24,6 +24,7 @@ import BaseModal from "@/components/BaseModal";
 import GameForm from "@/components/GameForm";
 import { mapActions } from "vuex";
 
+import { checkGameForm } from "@/js/utils/Validation";
 export default {
   components: {
     PageHeader,
@@ -40,17 +41,25 @@ export default {
         ageRestriction: null,
         thumbnail: "",
       },
+      errors: [],
     };
   },
   methods: {
     ...mapActions(["game/createGame"]),
     createGame() {
-      this.isCreateLoading = true;
+      // NOTE: Check form data
+      const [isValid, errors] = checkGameForm(this.game);
 
-      this["game/createGame"](this.game).then((e) => {
-        this.isCreateLoading = false;
-        this.$refs.gameCreateModal.hideModal();
-      });
+      if (isValid) {
+        this.isCreateLoading = true;
+
+        this["game/createGame"](this.game).then((e) => {
+          this.isCreateLoading = false;
+          this.$refs.gameCreateModal.hideModal();
+        });
+      } else {
+        this.errors = errors;
+      }
     },
     beforeModalShow() {
       // NOTE: Reset game data

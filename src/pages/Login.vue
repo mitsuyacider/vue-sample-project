@@ -65,44 +65,60 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["defaultAdminData"]),
+    ...mapGetters(["defaultAdminData", "loginUserInfo"]),
   },
   methods: {
-    ...mapActions(["setAdminData"]),
+    ...mapActions([
+      "setAdminData",
+      "ownership/getAllOwnership",
+      "user/getAllUser",
+      "game/getAllGame",
+    ]),
     handleSignIn(e) {
       e.preventDefault();
 
       // NOTE: Validate email and password
-      this.errors = [];
+      const [isValid, errors] = this.checkLoginForm();
+
+      if (isValid) {
+        // NOTE: check if input user exists in database.
+        const testAdmin = this.loginUserInfo(
+          /** email = */ this.email,
+          /** password = */ this.password
+        );
+
+        if (testAdmin) {
+          const adminData = testAdmin;
+          const path = `/${adminData.userId}/dashboard`;
+          this.$router.push(path);
+          this.setAdminData(adminData);
+          this["user/getAllUser"]();
+          this["game/getAllGame"]();
+          this["ownership/getAllOwnership"]();
+        } else {
+          this.isInvalidUser = true;
+        }
+      } else {
+        this.isInvalidUser = true;
+      }
+    },
+    checkLoginForm() {
+      let isValid = false;
+      let errors = [];
 
       if (!this.email) {
-        this.errors.push("Email required.");
+        errors.push("Email required.");
       } else if (!this.validEmail(this.email)) {
-        this.errors.push("Valid email required.");
-      }
-
-      // NOTE: Temporaly validation for this assignment.
-      if (this.email !== this.defaultAdminData.email) {
-        this.errors.push("Valid email required.");
+        errors.push("Valid email required.");
       }
 
       if (!this.password) {
-        this.errors.push("password required.");
+        errors.push("password required.");
       }
 
-      // NOTE: Temporaly validation for this assignment.
-      if (this.password !== this.defaultAdminData.password) {
-        this.errors.push("password required.");
-      }
+      if (errors.length === 0) isValid = true;
 
-      if (this.errors.length > 0) {
-        this.isInvalidUser = true;
-      } else {
-        const adminData = this.defaultAdminData;
-        const path = `/${adminData.userId}/dashboard`;
-        this.$router.push(path);
-        this.setAdminData(this.defaultAdminData);
-      }
+      return [isValid, errors];
     },
     validEmail: function(email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

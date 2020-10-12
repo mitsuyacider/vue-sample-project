@@ -43,14 +43,15 @@ export default {
     if (this.hasAdminData && this.adminData && this.adminData.userId) {
       const path = `/${this.adminData.userId}/dashboard`;
       if (this.$route && this.$route.path !== path) this.$router.push(path);
+
+      // NOTE: Get all data
+      this["user/getAllUser"]();
+      this["game/getAllGame"]();
+      this["ownership/getAllOwnership"]();
     } else {
       const path = "/";
       if (this.$route && this.$route.path !== path) this.$router.replace("/");
     }
-
-    this["user/getAllUser"]();
-    this["game/getAllGame"]();
-    this["ownership/getAllOwnership"]();
   },
   methods: {
     ...mapActions([

@@ -18,6 +18,7 @@ import "common.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+// NOTE: Vue lifecycle
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store";
@@ -30,6 +31,9 @@ import {
   BIconArrowDown,
 } from "bootstrap-vue";
 
+// NOTE: Store data
+import LocalStorage from "@/js/db/LocalStorage";
+
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.component("BIcon", BIcon);
@@ -41,3 +45,24 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+// NOTE: Check if user has already logged in.
+const hasAdmin = () => store.state.adminData.userId;
+
+// NOTE: Execute storing data into specific data table
+const storeData = (table) => (val) => {
+  if (hasAdmin()) {
+    const adminId = store.state.adminData.userId;
+    const key = `${adminId}/${table}`;
+    LocalStorage.setItem(key, val);
+  }
+};
+
+// NOTE: Watch user data modification for database
+store.watch((state) => state.user.userList, storeData("users"));
+
+// NOTE: Watch game data modification for database
+store.watch((state) => state.game.gameList, storeData("games"));
+
+// NOTE: Watch ownership data modification for database
+store.watch((state) => state.ownership.ownershipList, storeData("ownerships"));

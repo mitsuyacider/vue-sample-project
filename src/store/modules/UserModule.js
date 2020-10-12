@@ -1,3 +1,5 @@
+import LocalStorage from "@/js/db/LocalStorage";
+
 const mockUserList = [
   // {
   //   userId: "1",
@@ -40,7 +42,7 @@ export const userModule = {
     userData: 0,
   }),
   mutations: {
-    getAllUser(state, data) {
+    setAllUser(state, data) {
       state.userList = data;
     },
     deleteUser(state, userId) {
@@ -63,10 +65,12 @@ export const userModule = {
     },
   },
   actions: {
-    getAllUser({ commit }) {
-      setTimeout(() => {
-        commit("getAllUser", mockUserList);
-      }, 1000);
+    async getAllUser({ commit, rootState }) {
+      const adminId = rootState.adminData.userId;
+      const key = `${adminId}/users`;
+      const users = await getAllUser(key);
+
+      commit("setAllUser", users);
     },
     async deleteUser({ commit }, userId) {
       await deleteUser();
@@ -91,6 +95,13 @@ export const userModule = {
       return state.userList.filter((user) => user.userId == id)[0];
     },
   },
+};
+
+const getAllUser = (key) => {
+  return new Promise((resolve) => {
+    const users = LocalStorage.getItem(key) || [];
+    resolve(users);
+  });
 };
 
 const deleteUser = () => {

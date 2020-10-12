@@ -1,25 +1,31 @@
 <template>
   <BaseForm enctype="multipart/form-data">
     <div class="mb-3">
-      <label for="game">Game Name</label>
+      <label for="gameName">Game Name</label>
       <input
         type="text"
         class="form-control"
-        id="game"
+        :class="{
+          'is-invalid': this.errors.filter((e) => e.gameName).length > 0,
+        }"
+        id="gameName"
         placeholder="Game Name Here"
         v-model="game.gameName"
         required="true"
       />
       <div class="invalid-feedback">
-        Please enter a valid game name.
+        {{ getErrorMessage("gameName", this.errors) }}
       </div>
     </div>
     <div class="mb-3">
-      <label for="age">Age Restriction</label>
+      <label for="ageRestriction">Age Restriction</label>
       <input
         type="number"
         class="form-control"
-        id="age"
+        :class="{
+          'is-invalid': this.errors.filter((e) => e.ageRestriction).length > 0,
+        }"
+        id="ageRestriction"
         placeholder="Age Ristriction Number"
         v-model="game.ageRestriction"
         required="true"
@@ -27,12 +33,14 @@
         max="99"
       />
       <div class="invalid-feedback">
-        Please enter a valid age restriction.
+        {{ getErrorMessage("ageRestriction", this.errors) }}
       </div>
       <div class="mb-3 mt-4">
         <label
           class="position-relative thumbnail-label"
-          :class="{ dot: !game.thumbnail }"
+          :class="{
+            dot: !game.thumbnail,
+          }"
           for="thumbnail"
         >
           <span v-if="!game.thumbnail" class="thumbnail-text"
@@ -43,11 +51,18 @@
           <input
             type="file"
             class="form-control-file d-none"
+            :class="{
+              'is-invalid': this.errors.filter((e) => e.thumbnail).length > 0,
+            }"
             id="thumbnail"
             accept="image/x-png,image/jpeg"
             @change="handleFileChange"
+            required="true"
             multiple
           />
+          <div class="invalid-feedback">
+            {{ getErrorMessage("thumbnail", this.errors) }}
+          </div>
           <img
             v-show="game.thumbnail"
             :src="game.thumbnail"
@@ -63,6 +78,8 @@
 
 <script>
 import BaseForm from "@/components/BaseForm";
+import { getErrorMessage } from "@/js/utils/Validation";
+
 export default {
   components: {
     BaseForm,
@@ -72,9 +89,14 @@ export default {
       type: Object,
       value: "",
     },
+    errors: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   methods: {
+    getErrorMessage,
     handleFileChange(e) {
       const fileData = e.target.files[0];
       const elmThumbnail = this.$refs.gameThumbnail;

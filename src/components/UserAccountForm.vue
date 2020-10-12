@@ -6,13 +6,16 @@
         <input
           type="text"
           class="form-control"
+          :class="{
+            'is-invalid': this.errors.filter((e) => e.firstName).length > 0,
+          }"
           id="firstName"
           placeholder="First Name"
           v-model="user.firstName"
           required=""
         />
-        <div class="invalid-feedback">
-          Valid first name is required.
+        <div class="invalid-feedback was-validated">
+          {{ getErrorMessage("firstName", this.errors) }}
         </div>
       </div>
       <div class="col-md-6 mb-3">
@@ -20,13 +23,16 @@
         <input
           type="text"
           class="form-control"
+          :class="{
+            'is-invalid': this.errors.filter((e) => e.lastName).length > 0,
+          }"
           id="lastName"
           placeholder="Last Name"
           v-model="user.lastName"
           required=""
         />
         <div class="invalid-feedback">
-          Valid last name is required.
+          {{ getErrorMessage("lastName", this.errors) }}
         </div>
       </div>
     </div>
@@ -35,26 +41,30 @@
       <input
         type="email"
         class="form-control"
+        :class="{ 'is-invalid': this.errors.filter((e) => e.email).length > 0 }"
         id="email"
         placeholder="you@example.com"
         v-model="user.email"
         required=""
       />
       <div class="invalid-feedback">
-        Please enter a valid email address.
+        {{ getErrorMessage("email", this.errors) }}
       </div>
     </div>
     <div class="mb-3">
-      <label for="birthday">Birthday</label>
+      <label for="dateOfBirth">DateOfBirth</label>
       <input
         type="date"
         class="form-control"
-        id="birthday"
+        :class="{
+          'is-invalid': this.errors.filter((e) => e.dateOfBirth).length > 0,
+        }"
+        id="dateOfBirth"
         v-model="user.dateOfBirth"
         required=""
       />
       <div class="invalid-feedback">
-        Please enter a valid birthday.
+        {{ getErrorMessage("dateOfBirth", this.errors) }}
       </div>
     </div>
     <div class="mb-3">
@@ -62,13 +72,16 @@
       <input
         type="password"
         class="form-control"
+        :class="{
+          'is-invalid': this.errors.filter((e) => e.password).length > 0,
+        }"
         id="password"
         placeholder="Password"
         v-model="user.password"
         required=""
       />
       <div class="invalid-feedback">
-        Please enter a valid birthday.
+        {{ getErrorMessage("password", this.errors) }}
       </div>
     </div>
   </BaseForm>
@@ -76,6 +89,8 @@
 
 <script>
 import BaseForm from "@/components/BaseForm";
+import { getErrorMessage } from "@/js/utils/Validation";
+
 export default {
   components: {
     BaseForm,
@@ -85,6 +100,16 @@ export default {
       type: Object,
       value: "",
     },
+    errors: {
+      type: Array,
+      default: function() {
+        return ["email"];
+      },
+    },
+  },
+
+  methods: {
+    getErrorMessage,
   },
 };
 </script>

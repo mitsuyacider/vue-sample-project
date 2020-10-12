@@ -5,7 +5,7 @@
       <StaticEditName :name="game.gameName" />
 
       <!-- Account form -->
-      <GameForm :game="game" />
+      <GameForm :game="game" :errors="errors" />
 
       <!-- Edit button (Delete / Save) -->
       <EditButtonGroup
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+// NOTE: Components
 import OwnershipList from "@/components/OwnershipList";
 import GameForm from "@/components/GameForm";
 import EditButtonGroup from "@/components/EditButtonGroup";
@@ -62,8 +63,12 @@ import StaticEditName from "@/components/StaticEditName";
 import BaseModal from "@/components/BaseModal";
 import GrantUserList from "@/components/GrantUserList";
 
+// NOTE: Store
 import { mapActions, mapGetters } from "vuex";
 import store from "@/store";
+
+// NOTE: JavaScript
+import { checkGameForm } from "@/js/utils/Validation";
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -109,6 +114,7 @@ export default {
         gameName: "",
       },
       ownerships: [],
+      errors: [],
     };
   },
   watch: {
@@ -138,11 +144,17 @@ export default {
       "ownership/addOwnerships",
     ]),
     postGameEdit() {
-      this.isGameEditLoading = true;
+      const [isValid, errors] = checkGameForm(this.game);
 
-      this["game/postGameEdit"](this.game)
-        .then((e) => (this.isGameEditLoading = false))
-        .catch((err) => (this.isGameEditLoading = false));
+      if (isValid) {
+        this.isGameEditLoading = true;
+
+        this["game/postGameEdit"](this.game)
+          .then((e) => (this.isGameEditLoading = false))
+          .catch((err) => (this.isGameEditLoading = false));
+      } else {
+        this.errors = errors;
+      }
     },
     deleteGame() {
       const isConfirmed = confirm(
@@ -212,7 +224,6 @@ export default {
 
       this.isGrantModalLoading = true;
       this["ownership/addOwnerships"](data).then((e) => {
-        console.log("** grant ownership");
         this.$refs.ownershipModal.hideModal();
         this.isGrantModalLoading = false;
       });

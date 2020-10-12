@@ -7,7 +7,10 @@
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
         <!-- Dashboard -->
-        <SideMenuItem :path="'/123/dashboard'" :linkName="'Dashboard'">
+        <SideMenuItem
+          :path="`/${this.adminData.userId}/dashboard`"
+          :linkName="'Dashboard'"
+        >
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -17,7 +20,10 @@
         </SideMenuItem>
 
         <!-- Users -->
-        <SideMenuItem :path="'/123/users'" :linkName="'Users'">
+        <SideMenuItem
+          :path="`/${this.adminData.userId}/users`"
+          :linkName="'Users'"
+        >
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -27,7 +33,10 @@
         </SideMenuItem>
 
         <!-- Games -->
-        <SideMenuItem :path="'/123/games'" :linkName="'Games'">
+        <SideMenuItem
+          :path="`/${this.adminData.userId}/games`"
+          :linkName="'Games'"
+        >
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -37,7 +46,10 @@
         </SideMenuItem>
 
         <!-- Settings -->
-        <SideMenuItem :path="'/123/settings'" :linkName="'Settings'">
+        <SideMenuItem
+          :path="`/${this.adminData.userId}/settings`"
+          :linkName="'Settings'"
+        >
           <BaseIcon>
             <path
               fill-rule="evenodd"
@@ -53,6 +65,7 @@
 <script>
 import SideMenuItem from "@/components/SideMenuItem";
 import BaseIcon from "@/components/BaseIcon";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   props: {
@@ -60,6 +73,9 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters(["hasAdminData", "adminData"]),
   },
   components: {
     SideMenuItem,

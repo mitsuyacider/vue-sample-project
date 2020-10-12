@@ -31,7 +31,7 @@
         <b-dropdown
           id="dropdown-account"
           dropbottom
-          text="Mitsuya"
+          :text="adminData.firstName"
           variant="none"
           class="account-menu"
         >
@@ -55,7 +55,7 @@ export default {
     handlClickOnHeaderIcon(event) {
       if (this.hasAdminData) {
         if (this.hasAdminData) {
-          const path = "/123/dashboard/";
+          const path = `/${this.adminData.userId}/dashboard`;
           if (this.$route && this.$route.path !== path) this.$router.push(path);
         } else {
           const path = "/";
