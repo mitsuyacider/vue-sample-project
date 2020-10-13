@@ -166,11 +166,16 @@ export default {
         `Are you sure you want to delete ${this.game.gameName}?`
       );
       if (isConfirmed) {
-        this["game/deleteGame"](this.game.gameId).then((e) => {
-          const adminId = this.$route.params.adminId;
-          const nextPath = `/${adminId}/games`;
-          this.$router.push(nextPath);
-        });
+        this.isGameEditLoading = true;
+
+        this["game/deleteGame"](this.game.gameId)
+          .then((e) => {
+            this.isGameEditLoading = false;
+            const adminId = this.$route.params.adminId;
+            const nextPath = `/${adminId}/games`;
+            this.$router.push(nextPath);
+          })
+          .catch((err) => (this.isGameEditLoading = false));
       }
     },
     setData(err, data) {

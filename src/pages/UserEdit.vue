@@ -140,11 +140,15 @@ export default {
         `Are you sure you want to delete ${this.user.firstName}?`
       );
       if (isConfirmed) {
-        this["user/deleteUser"](this.user.userId).then((e) => {
-          const adminId = this.$route.params.adminId;
-          const nextPath = `/${adminId}/users`;
-          this.$router.push(nextPath);
-        });
+        this.isUserEditLoading = true;
+        this["user/deleteUser"](this.user.userId)
+          .then((e) => {
+            this.isUserEditLoading = false;
+            const adminId = this.$route.params.adminId;
+            const nextPath = `/${adminId}/users`;
+            this.$router.push(nextPath);
+          })
+          .catch((err) => (this.isUserEditLoading = false));
       }
     },
     deleteOwnership(data) {
