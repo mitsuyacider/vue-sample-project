@@ -81,12 +81,3 @@ module.exports = {
     }),
   ],
 };
-
-// new DefinePlugin({
-//   "process.env": JSON.stringify({
-//     ...dotenv.config({
-//       path: `${ROOT_DIR}/environments/.${env}.env`,
-//     }).parsed,
-//     NODE_ENV: env,
-//   }),
-// });

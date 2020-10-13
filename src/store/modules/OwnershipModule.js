@@ -20,13 +20,14 @@ export const ownershipModule = {
     },
     setOwnerships(state, data) {
       if (data && data.length > 0) {
-        const ownershipList = state.ownershipList;
         state.ownershipList.push(...data);
       }
     },
     changeOwnership(state, data) {
       const newState = data.modified === "Grant" ? "owned" : "revoked";
-      const list = state.ownershipList;
+
+      // NOTE: Clone array. otherwise watch option doesn't fire after modification
+      const list = state.ownershipList.slice();
       const hasOwner = (owner) => owner.ownershipId === data.ownershipId;
 
       // NOTE: Update ownership
@@ -34,6 +35,9 @@ export const ownershipModule = {
         owner.state = newState;
         return owner;
       });
+
+      // NOTE: Apply updated list
+      state.ownershipList = list;
     },
   },
   actions: {

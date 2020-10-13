@@ -8,7 +8,7 @@ const isStaging = process.env.NODE_ENV === "staging";
 
 let useTestData = isStaging ? false : true;
 
-// NOTE: If this application is built by production mode, should NOT use test data.
+// NOTE: If this application is built in production mode, should NOT use test data.
 if (isProduction) useTestData = false;
 
 export { useTestData, mockUserList, mockGameList, mockOwnershipList };

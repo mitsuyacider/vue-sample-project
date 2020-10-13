@@ -123,6 +123,7 @@ export default {
         this["user/postUserEdit"](this.user)
           .then((e) => {
             this.isUserEditLoading = false;
+            this.errors = [];
           })
           .catch((err) => {
             this.errors = [

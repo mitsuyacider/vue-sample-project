@@ -19,12 +19,16 @@ export const userModule = {
       userList.splice(deleteUserIndex, 1);
     },
     postUserEdit(state, editedUser) {
-      const userList = state.userList;
+      // NOTE: Clone array. otherwise watch option doesn't fire after modification
+      const userList = state.userList.slice();
       userList
         .filter((user) => editedUser.userId === user.userId)
         .map((user) => {
           return Object.assign(user, editedUser);
         });
+
+      // NOTE: Apply updated list
+      state.userList = userList;
     },
     createUser(state, newUser) {
       state.userList.push(newUser);

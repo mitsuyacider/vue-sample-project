@@ -18,13 +18,17 @@ export const gameModule = {
       gameList.splice(deleteGameIndex, 1);
     },
     postGameEdit(state, editedGame) {
-      const gameList = state.gameList;
+      // NOTE: Clone array. otherwise watch option doesn't fire after modification
+      const gameList = state.gameList.slice();
       gameList
         .filter((game) => editedGame.gameId === game.gameId)
         .map((game) => {
           // NOTE: Assign updated data to game list
           return Object.assign(game, editedGame);
         });
+
+      // NOTE: Apply updated list
+      state.gameList = gameList;
     },
     createGame(state, newGame) {
       state.gameList.push(newGame);
