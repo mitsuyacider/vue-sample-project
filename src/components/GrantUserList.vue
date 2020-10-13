@@ -3,12 +3,7 @@
     <BaseListTable v-if="this.userList.length > 0">
       <thead class="thead-dark">
         <tr>
-          <th>
-            <input
-              type="checkbox"
-              aria-label="Checkbox for following text input"
-            />
-          </th>
+          <th></th>
           <th>#id</th>
           <th>Name</th>
         </tr>

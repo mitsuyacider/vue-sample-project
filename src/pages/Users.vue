@@ -49,10 +49,17 @@ export default {
       if (isValid) {
         this.isCreateLoading = true;
 
-        this["user/createUser"](this.user).then((e) => {
-          this.isCreateLoading = false;
-          this.$refs.userCreateModal.hideModal();
-        });
+        this["user/createUser"](this.user)
+          .then((e) => {
+            this.isCreateLoading = false;
+            this.$refs.userCreateModal.hideModal();
+          })
+          .catch((err) => {
+            this.errors = [
+              { email: "This email address has been registered." },
+            ];
+            this.isCreateLoading = false;
+          });
       } else {
         this.errors = errors;
       }

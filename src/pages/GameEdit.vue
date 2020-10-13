@@ -79,11 +79,16 @@ export default {
       to.params.gameId
     );
 
-    const mergedOwnership = ownerships.map((ownership) => {
-      const user = store.getters["user/getUserById"](ownership.userId);
-      ownership.user = user;
-      return ownership;
-    });
+    const mergedOwnership = ownerships
+      .filter((ownership) => {
+        const user = store.getters["user/getUserById"](ownership.userId);
+        return user;
+      })
+      .map((ownership) => {
+        const user = store.getters["user/getUserById"](ownership.userId);
+        ownership.user = user;
+        return ownership;
+      });
 
     const mockOwnershipGameList = {
       ownerships: mergedOwnership,

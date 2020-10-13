@@ -4,7 +4,7 @@
       <td>{{ user.userId }}</td>
       <td>{{ user.firstName + " " + user.lastName }}</td>
       <td>{{ user.dateOfBirth }}</td>
-      <td>{{ user.email }}</td>
+      <td>{{ user.email.toLowerCase() }}</td>
       <td>
         <b-icon icon="trash" v-on:click="onClickTrash"></b-icon>
         <router-link :to="`/${adminData.userId}/users/${user.userId}/edit`"

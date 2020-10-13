@@ -27,8 +27,7 @@
 
       <!-- There is no ownership data -->
       <div v-else>
-        There is no ownership data for this user. Go to games menu from side
-        menu and grant ownership of games to this user.
+        There is no ownership data for this user.
       </div>
     </div>
   </div>
@@ -54,11 +53,16 @@ export default {
     const ownerships = store.getters["ownership/getOwnershipListByUserId"](
       userId
     );
-    const mergedOwnership = ownerships.map((ownership) => {
-      const game = store.getters["game/getGameById"](ownership.gameId);
-      ownership.game = game;
-      return ownership;
-    });
+    const mergedOwnership = ownerships
+      .filter((ownership) => {
+        const game = store.getters["game/getGameById"](ownership.gameId);
+        return game;
+      })
+      .map((ownership) => {
+        const game = store.getters["game/getGameById"](ownership.gameId);
+        ownership.game = game;
+        return ownership;
+      });
 
     const mockOwnershipList = {
       ownerships: mergedOwnership,
@@ -120,7 +124,12 @@ export default {
           .then((e) => {
             this.isUserEditLoading = false;
           })
-          .catch((err) => (this.isUserEditLoading = false));
+          .catch((err) => {
+            this.errors = [
+              { email: "This email address has been registered." },
+            ];
+            this.isUserEditLoading = false;
+          });
       } else {
         this.errors = errors;
       }

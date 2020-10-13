@@ -52,21 +52,6 @@
       </div>
     </div>
     <div class="mb-3">
-      <!-- <label for="dateOfBirth">DateOfBirth</label> -->
-      <!-- <input
-        type="date"
-        class="form-control"
-        :class="{
-          'is-invalid': this.errors.filter((e) => e.dateOfBirth).length > 0,
-        }"
-        id="dateOfBirth"
-        placeholder="yyyy/mm/dd"
-        v-model="user.dateOfBirth"
-        required=""
-      /> -->
-      <!-- <div class="invalid-feedback">
-        {{ getErrorMessage("dateOfBirth", this.errors) }}
-      </div> -->
       <label for="datepicker">Choose a date</label>
       <b-form-datepicker
         id="datepicker"
@@ -137,3 +122,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+form input[type="email"] {
+  text-transform: lowercase;
+}
+</style>

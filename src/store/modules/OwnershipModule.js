@@ -94,6 +94,9 @@ export const ownershipModule = {
   },
 };
 
+/**
+ * NOTE: APIs
+ */
 const postOwnershipEdit = () => {
   return new Promise((resolve) => {
     setTimeout(() => {

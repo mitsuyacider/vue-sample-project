@@ -68,6 +68,9 @@ export const gameModule = {
   },
 };
 
+/**
+ * NOTE: APIs
+ */
 const getAllGame = (key) => {
   return new Promise((resolve) => {
     const games = LocalStorage.getItem(key) || [];

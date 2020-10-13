@@ -30,7 +30,7 @@ export default {
     },
     userAddress() {
       if (this.adminData && this.adminData.email) {
-        return this.adminData.email;
+        return this.adminData.email.toLowerCase();
       } else {
         return "";
       }

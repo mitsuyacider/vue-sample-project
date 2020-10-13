@@ -51,12 +51,18 @@ export const userModule = {
       await postUserEdit();
       commit("postUserEdit", user);
     },
-    async createUser({ commit }, user) {
-      await createUser();
+    async createUser({ commit, rootState }, user) {
+      try {
+        const adminId = rootState.adminData.userId;
 
-      // NOTE: Should create unique id by an another algorithm
-      user.userId = Math.floor(Math.random() * 1000000);
-      commit("createUser", user);
+        await createUser({ user, adminId });
+
+        // NOTE: Should create unique id by an another algorithm
+        user.userId = Math.floor(Math.random() * 1000000);
+        commit("createUser", user);
+      } catch (error) {
+        throw new Error(error);
+      }
     },
   },
   getters: {
@@ -69,6 +75,9 @@ export const userModule = {
   },
 };
 
+/**
+ * NOTE: APIs
+ */
 const getAllUser = (key) => {
   return new Promise((resolve) => {
     const users = LocalStorage.getItem(key) || [];
@@ -84,10 +93,23 @@ const deleteUser = () => {
   });
 };
 
-const createUser = () => {
-  return new Promise((resolve) => {
+const createUser = ({ user, adminId }) => {
+  return new Promise((resolve, reject) => {
+    const key = `${adminId}/users`;
+    const users = LocalStorage.getItem(key) || [];
+
+    // NOTE: Check if the input email address has already existed in database
+    const hasUser =
+      users.filter(
+        (dbUser) => dbUser.email.toLowerCase() == user.email.toLowerCase()
+      ).length > 0;
+
     setTimeout(() => {
-      resolve("resolved");
+      if (hasUser) {
+        reject("existing user");
+      } else {
+        resolve("resolved");
+      }
     }, 1000);
   });
 };

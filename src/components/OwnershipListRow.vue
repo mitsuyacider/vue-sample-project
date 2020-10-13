@@ -2,12 +2,19 @@
   <BaseListRow>
     <tr>
       <!-- Game Name / User Name -->
-      <td>
-        {{
-          listType === "game"
-            ? rowData.game.gameName
-            : rowData.user.firstName + " " + rowData.user.lastName
-        }}
+      <td v-if="listType === 'user'">
+        {{ rowData.user.firstName + " " + rowData.user.lastName }}
+      </td>
+      <td v-else>
+        <div class="d-flex align-items-center">
+          <img
+            v-if="rowData.game.thumbnail !== ''"
+            :src="rowData.game.thumbnail"
+            alt="thumbnail"
+            class="thumbnail"
+          />
+          <span class="ml-2">{{ rowData.game.gameName }}</span>
+        </div>
       </td>
 
       <!-- State (Granted / Revoked) -->
@@ -94,5 +101,10 @@ export default {
     background: none;
     color: black;
   }
+}
+
+.thumbnail {
+  width: 80px;
+  height: 60px;
 }
 </style>
