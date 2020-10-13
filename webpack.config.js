@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
@@ -63,6 +64,11 @@ module.exports = {
     },
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
     new MiniCssExtractPlugin({
       filename: "css/[name].css",
     }),
@@ -75,3 +81,12 @@ module.exports = {
     }),
   ],
 };
+
+// new DefinePlugin({
+//   "process.env": JSON.stringify({
+//     ...dotenv.config({
+//       path: `${ROOT_DIR}/environments/.${env}.env`,
+//     }).parsed,
+//     NODE_ENV: env,
+//   }),
+// });

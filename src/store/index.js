@@ -10,10 +10,10 @@ Vue.use(Vuex);
 
 // NOTE: Test user account for this assignment.
 const defaultAdminData = {
-  userId: "123",
-  firstName: "Maxine",
-  lastName: "Mitchell",
-  email: "test@acmegames.com",
+  userId: "admin",
+  firstName: "Admin",
+  lastName: "User",
+  email: "admin@acmegames.com",
   password: "acmegames",
   dateOfBirth: "1985/08/06",
 };

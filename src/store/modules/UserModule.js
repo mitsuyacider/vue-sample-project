@@ -1,119 +1,5 @@
 import LocalStorage from "@/js/db/LocalStorage";
-
-const mockUserList = [
-  {
-    userId: "1",
-    firstName: "Mitsuya1",
-    lastName: "Watanabe1",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "2",
-    firstName: "Mitsuya2",
-    lastName: "Watanabe2",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "3",
-    firstName: "Mitsuya3",
-    lastName: "Watanabe3",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "4",
-    firstName: "Mitsuya4",
-    lastName: "Watanabe4",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "5",
-    firstName: "Mitsuya1",
-    lastName: "Watanabe1",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "6",
-    firstName: "Mitsuya2",
-    lastName: "Watanabe2",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "7",
-    firstName: "Mitsuya3",
-    lastName: "Watanabe3",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "8",
-    firstName: "Mitsuya4",
-    lastName: "Watanabe4",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "9",
-    firstName: "Mitsuya3",
-    lastName: "Watanabe3",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "10",
-    firstName: "Mitsuya4",
-    lastName: "Watanabe4",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "11",
-    firstName: "Mitsuya1",
-    lastName: "Watanabe1",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "12",
-    firstName: "Mitsuya2",
-    lastName: "Watanabe2",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "13",
-    firstName: "Mitsuya3",
-    lastName: "Watanabe3",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-  {
-    userId: "14",
-    firstName: "Mitsuya4",
-    lastName: "Watanabe4",
-    password: "asdfafa",
-    email: "mitsuya.watanabe85@gmail.com",
-    dateOfBirth: "06/08/2020",
-  },
-];
+import { mockUserList, useTestData } from "@/js/db/TestData";
 
 export const userModule = {
   namespaced: true,
@@ -150,7 +36,12 @@ export const userModule = {
       const key = `${adminId}/users`;
       const users = await getAllUser(key);
 
-      commit("setAllUser", users);
+      // NOTE: If test data available, use test data. Basically development mode.
+      if (useTestData) {
+        commit("setAllUser", mockUserList);
+      } else {
+        commit("setAllUser", users);
+      }
     },
     async deleteUser({ commit }, userId) {
       await deleteUser();

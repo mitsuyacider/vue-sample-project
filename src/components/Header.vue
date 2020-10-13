@@ -17,13 +17,14 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
         style="right:10px;"
+        v-if="this.hasAdminData || this.hasLoginUserData"
         @click="(e) => this.$emit('onClickSideBarMenu')"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div
-        class="navbar-nav px-3 d-md-block d-none"
+        class="navbar-nav px-3 d-md-block flex-row align-items-center"
         style="font-size: 1rem; color:white;"
         v-if="this.hasAdminData || this.hasLoginUserData"
       >

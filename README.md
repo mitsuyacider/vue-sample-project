@@ -1,12 +1,24 @@
-# How to Build
+# Environment
 
-### Version
+### Build Version
+
+I didn't use vue-cli to setup project. Instead, I installed all dependencies and constructed manually.
 
 | Package | Version  |
 | ------- | :------- |
 | node    | v12.16.1 |
 | vue     | v2.6     |
 | webpack | v4.44.2  |
+| babel   | v7.11.6  |
+
+### CSS Frameworks
+
+| Package       | Version |
+| ------------- | :------ |
+| bootstrap     | v4.5.2  |
+| bootstrap-vue | v2.17.3 |
+
+# How to Build
 
 ### Install
 
@@ -16,20 +28,28 @@ NOTE: Your node version requires at least v12.
 npm run install
 ```
 
-### Build (Production)
+### Build (Production Only)
 
-The following command generates all assets into dist folder. You can test this application by opening the created **index.html** file with an arbitary browser.
+The following command generates all assets into dist folder. You can test this application by opening the created **index.html** file with an arbitary browser. There is no user and game available in first use and admin user has already logged in to the admin interface.
 
 ```
 npm run build
 ```
 
-### Development
+### Develop
 
-The following command runs local server for development. You can test this application by accessing **http://0.0.0.0:8080/** file with an arbitary browser. If your laptop is running the other application on the port **8080**, change the port defined in **package.json** at script.serve property with specific port. Your can also test this application on smartphone, as long as your smartphone is on same network with your laptop. In that case, input the internal IP of your laptop and the port to the search box on the smartphone. You can also test this application via mobile browser in iOS simulator which is provided by Xcode.
+The following command runs local server for development. You can test this application by accessing **http://0.0.0.0:8080/** file with an arbitary browser. If your laptop is running the other application on the port **8080**, change the port defined in **package.json** at script.serve property with a specific port. Your can also test this application on smartphone, as long as your smartphone is on same network with your laptop. In that case, input the internal IP of your laptop and the port to the search box on the smartphone. You can also test this application via mobile browser in iOS simulator which is provided by Xcode. In the development mode, test user and game data has already exists.
 
 ```
 npm run serve
+```
+
+### Staging
+
+The following command runs local server for staging. The difference between develop and staging mode is dataset. In the staging mode, there is no user and game available in first use and admin user has already logged in to the admin interface. As I use localstorage to store user, game and ownership data, you clear cache the data before launch this mode. This mode expects equivalent befaviors to the production build.
+
+```
+npm run serve:staging
 ```
 
 ### Unit Test
@@ -42,16 +62,12 @@ npm run test
 
 # Test Admin Account
 
-This test admin account is defined in **<rootDir>/src/store/index.js**.
-Initially, I thought this admin interface was used by multiple admin users. But at the moment, I provide just only one admin user to this admin user interface.
+This test admin account is defined in **<rootDir>/src/store/index.js**. Once singn out from this application, you can sign in with this admin account. Using admin accoun brings you to the admin interface. If you create new user in the admin interface, you can sign in with the user account. Using the created user account leads to the user page. Initially, I thought this admin interface was used by multiple admin users. But at the moment, I provide just only one admin user to this admin user interface.
 
-| Key         |       Value        |
-| ----------- | :----------------: |
-| firstName   |       Maxine       |
-| lastName    |      Mitchell      |
-| email       | test@acmegames.com |
-| password    |     acmegames      |
-| dateOfBirth |     1985/08/06     |
+| Key      |        Value        |
+| -------- | :-----------------: |
+| email    | admin@acmegames.com |
+| password |      acmegames      |
 
 # Folder Structure
 

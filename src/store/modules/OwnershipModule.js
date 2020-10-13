@@ -1,42 +1,5 @@
 import LocalStorage from "@/js/db/LocalStorage";
-
-const mockOwnershipList = [
-  // {
-  //   ownershipId: "1",
-  //   gameId: "1",
-  //   userId: "1",
-  //   state: "granted",
-  //   registeredDate: "06/08/2020",
-  // },
-  // {
-  //   ownershipId: "2",
-  //   gameId: "2",
-  //   userId: "1",
-  //   state: "granted",
-  //   registeredDate: "06/08/2020",
-  // },
-  // {
-  //   ownershipId: "3",
-  //   gameId: "3",
-  //   userId: "1",
-  //   state: "granted",
-  //   registeredDate: "06/08/2020",
-  // },
-  // {
-  //   ownershipId: "4",
-  //   gameId: "2",
-  //   userId: "4",
-  //   state: "granted",
-  //   registeredDate: "06/08/2020",
-  // },
-  // {
-  //   ownershipId: "5",
-  //   gameId: "1",
-  //   userId: "3",
-  //   state: "granted",
-  //   registeredDate: "06/08/2020",
-  // },
-];
+import { mockOwnershipList, useTestData } from "@/js/db/TestData";
 
 export const ownershipModule = {
   namespaced: true,
@@ -86,7 +49,13 @@ export const ownershipModule = {
       const adminId = rootState.adminData.userId;
       const key = `${adminId}/ownerships`;
       const ownerships = await getAllOwnership(key);
-      commit("setAllOwnership", ownerships);
+
+      // NOTE: If test data available, use test data. Basically development mode.
+      if (useTestData) {
+        commit("setAllOwnership", mockOwnershipList);
+      } else {
+        commit("setAllOwnership", ownerships);
+      }
     },
     async addOwnerships({ commit }, data) {
       await addOwnerships();

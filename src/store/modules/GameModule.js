@@ -1,79 +1,5 @@
 import LocalStorage from "@/js/db/LocalStorage";
-
-const mockGameList = [
-  {
-    gameId: "1",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "2",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "3",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "4",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "5",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "6",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "7",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "8",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "9",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "10",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "11",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-  {
-    gameId: "12",
-    gameName: "Acme Game",
-    ageRestriction: 18,
-    thumbnail: "http://placehold.jp/24/cc9999/993333/80x50.png",
-  },
-];
+import { mockGameList, useTestData } from "@/js/db/TestData";
 
 export const gameModule = {
   namespaced: true,
@@ -110,7 +36,12 @@ export const gameModule = {
       const key = `${adminId}/games`;
       const games = await getAllGame(key);
 
-      commit("settAllGame", games);
+      // NOTE: If test data available, use test data. Basically development mode.
+      if (useTestData) {
+        commit("settAllGame", mockGameList);
+      } else {
+        commit("settAllGame", games);
+      }
     },
     async deleteGame({ commit }, gameId) {
       await deleteGame();

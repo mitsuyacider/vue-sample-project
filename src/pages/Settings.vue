@@ -2,7 +2,6 @@
   <div>
     <StaticEditName :name="userName" />
     <div><span>Email: </span>{{ userAddress }}</div>
-    <div><span>Birth: </span>{{ dateOfBirth }}</div>
   </div>
 </template>
 
@@ -32,13 +31,6 @@ export default {
     userAddress() {
       if (this.adminData && this.adminData.email) {
         return this.adminData.email;
-      } else {
-        return "";
-      }
-    },
-    dateOfBirth() {
-      if (this.adminData && this.adminData.dateOfBirth) {
-        return this.adminData.dateOfBirth;
       } else {
         return "";
       }

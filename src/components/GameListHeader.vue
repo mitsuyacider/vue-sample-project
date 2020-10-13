@@ -2,7 +2,7 @@
   <BaseListHeader>
     <tr>
       <th># id</th>
-      <th>Name</th>
+      <th>Game Name</th>
       <th>Age Restriction</th>
       <th></th>
     </tr>

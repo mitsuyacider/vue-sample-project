@@ -1,7 +1,9 @@
 <template>
   <BaseListRow>
     <tr>
-      <td>{{ rowData.gameId }}</td>
+      <td>
+        <div>{{ rowData.gameId }}</div>
+      </td>
       <td>
         <div class="d-flex align-items-center">
           <img
