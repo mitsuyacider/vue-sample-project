@@ -13,6 +13,8 @@ export const userModule = {
     },
     deleteUser(state, userId) {
       const userList = state.userList;
+
+      // NOTE: Extract delete user id.
       const deleteUserIndex = userList.findIndex(
         (user) => user.userId === userId
       );
@@ -80,7 +82,8 @@ export const userModule = {
 };
 
 /**
- * NOTE: APIs
+ * NOTE: APIs.
+ * Set loading duration on purpose from the perspective of user experience.
  */
 const getAllUser = (key) => {
   return new Promise((resolve) => {
@@ -93,7 +96,7 @@ const deleteUser = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -122,6 +125,6 @@ const postUserEdit = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };

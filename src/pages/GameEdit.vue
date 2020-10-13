@@ -71,6 +71,7 @@ import store from "@/store";
 import { checkGameForm } from "@/js/utils/Validation";
 
 export default {
+  // NOTE: Get all game data related to gameId before showing page.
   beforeRouteEnter(to, from, next) {
     const gameInfo = store.getters["game/getGameById"](to.params.gameId);
     const mockGame = { gameInfo };
@@ -123,6 +124,7 @@ export default {
     };
   },
   watch: {
+    // NOTE: When ownership is deleted/modified, refresh ownership list.
     "$store.state.ownership.ownershipList": function(newVal, oldVal) {
       const gameId = this.$route.params.gameId;
       const gameInfo = store.getters["game/getGameById"](gameId);
@@ -148,6 +150,7 @@ export default {
       "ownership/postOwnershipEdit",
       "ownership/addOwnerships",
     ]),
+    // NOTE: After save button fires, update game data.
     postGameEdit() {
       const [isValid, errors] = checkGameForm(this.game);
 

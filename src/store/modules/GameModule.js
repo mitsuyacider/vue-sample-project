@@ -12,6 +12,8 @@ export const gameModule = {
     },
     deleteGame(state, gameId) {
       const gameList = state.gameList;
+
+      // NOTE: Extract delete game id.
       const deleteGameIndex = gameList.findIndex(
         (game) => game.gameId === gameId
       );
@@ -74,6 +76,7 @@ export const gameModule = {
 
 /**
  * NOTE: APIs
+ * Set loading duration on purpose from the perspective of user experience.
  */
 const getAllGame = (key) => {
   return new Promise((resolve) => {
@@ -86,7 +89,7 @@ const deleteGame = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -94,7 +97,7 @@ const createGame = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -102,6 +105,6 @@ const postGameEdit = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };

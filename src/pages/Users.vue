@@ -55,6 +55,7 @@ export default {
             this.$refs.userCreateModal.hideModal();
           })
           .catch((err) => {
+            // NOTE: If email addres has already been registered, show an error message.
             this.errors = [
               { email: "This email address has been registered." },
             ];

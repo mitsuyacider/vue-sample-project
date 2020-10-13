@@ -27,8 +27,8 @@ export default new Vuex.Store({
   state: {
     // NOTE: Initial data for this assignment
     adminData: defaultAdminData,
-    loginUserData: {},
     // adminData: {},
+    loginUserData: {},
   },
   mutations: {
     setAdminData(state, data) {

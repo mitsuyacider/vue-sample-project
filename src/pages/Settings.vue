@@ -18,22 +18,15 @@ export default {
   computed: {
     ...mapGetters(["adminData"]),
     userName() {
-      if (
-        this.adminData &&
-        this.adminData.firstName &&
-        this.adminData.lastName
-      ) {
-        return this.adminData.firstName + " " + this.adminData.lastName;
-      } else {
-        return "";
-      }
+      const hasData =
+        this.adminData && this.adminData.firstName && this.adminData.lastName;
+      return hasData
+        ? this.adminData.firstName + " " + this.adminData.lastName
+        : "";
     },
     userAddress() {
-      if (this.adminData && this.adminData.email) {
-        return this.adminData.email.toLowerCase();
-      } else {
-        return "";
-      }
+      const hasData = this.adminData && this.adminData.email;
+      return hasData ? this.adminData.email.toLowerCase() : "";
     },
   },
 };

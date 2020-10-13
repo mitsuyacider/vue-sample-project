@@ -100,12 +100,13 @@ export const ownershipModule = {
 
 /**
  * NOTE: APIs
+ * Set loading duration on purpose from the perspective of user experience.
  */
 const postOwnershipEdit = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -120,7 +121,7 @@ const deleteOwnership = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };
 
@@ -128,6 +129,6 @@ const addOwnerships = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve("resolved");
-    }, 2000);
+    }, 1000);
   });
 };

@@ -6,7 +6,10 @@
           Welcome to Acme Games!
         </h1>
       </div>
+
+      <!-- Login form -->
       <BaseForm>
+        <!-- Email -->
         <div class="form-label-group mb-3">
           <input
             type="email"
@@ -19,6 +22,7 @@
           />
         </div>
 
+        <!-- Password -->
         <div class="form-label-group">
           <input
             type="password"
@@ -39,6 +43,8 @@
             <input type="checkbox" value="remember-me" /> Remember me
           </label>
         </div>
+
+        <!-- Sign in -->
         <button
           class="btn btn-lg btn-primary btn-block"
           type="submit"
